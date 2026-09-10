@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Mosaic - Enterprise Semantic & Data Product Platform</title>
+<style>
+  :root {
+    --bg: #131518;
+    --panel: #1d2025;
+    --panel-2: #25282f;
+    --panel-3: #2d313a;
+    --border: #363b44;
+    --text: #f0f2f5;
+    --text-dim: #9aa1ad;
+    --accent: #60a5fa;
+    --accent-hover: #3b82f6;
+    --green: #34d399;
+    --green-bg: rgba(52, 211, 153, 0.15);
+    --yellow: #fbbf24;
+    --yellow-bg: rgba(251, 191, 36, 0.15);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.15);
+    --purple: #c084fc;
+    --purple-bg: rgba(192, 132, 252, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    height: 100vh;
+  }
+  .sidebar {
+    width: 250px;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .sidebar h1 {
+    font-size: 17px;
+    margin: 0 0 20px 0;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-tabs {
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+  .nav-item {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-item:hover {
+    background: var(--panel-2);
+    color: var(--text);
+  }
+  .nav-item.active {
+    background: var(--accent);
+    color: #0b1120;
+    font-weight: 600;
+  }
+  .badge {
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    background: var(--panel-3);
+    color: var(--text);
+  }
+  .nav-item.active .badge {
+    background: #0b1120;
+    color: var(--accent);
+  }
+  .sidebar-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin: 12px 0 8px 6px;
+  }
+  .sidebar-scroll {
+    overflow-y: auto;
+    flex: 1;
+  }
+  .domain-group { margin-top: 14px; }
+  .domain-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 6px;
+    padding: 0 8px;
+    font-weight: 600;
+  }
+  .product-item {
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    margin-bottom: 3px;
+    border: 1px solid transparent;
+  }
+  .product-item:hover { background: var(--panel-2); border-color: var(--border); }
+  .product-item .owner {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .topbar {
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-dim);
+    background: var(--panel);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .owner-badge-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 24px;
+    max-width: 960px;
+  }
+  .panel h2 {
+    font-size: 14.5px;
+    margin: 0 0 14px 0;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .form-group {
+    margin-bottom: 14px;
+  }
+  .form-label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .form-hint {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  input[type=text], textarea, select {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  input[type=text]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+  input[type=file] {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  button {
+    background: var(--accent);
+    color: #0b1120;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  button:hover { background: var(--accent-hover); }
+  button.reject { background: var(--red); color: #fff; }
+  button.approve { background: var(--green); color: #0b1120; }
+  button.secondary { background: var(--panel-3); color: var(--text); }
+  button.secondary:hover { background: var(--border); }
+  .thumb-btn { opacity: 0.5; padding: 4px 10px; margin-left: 4px; }
+  .thumb-btn.active { opacity: 1; box-shadow: 0 0 0 2px rgba(255,255,255,0.3); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  th, td {
+    border-bottom: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+  }
+  th { color: var(--text-dim); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+  .status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .status-PENDING { background: var(--yellow-bg); color: var(--yellow); }
+  .status-APPROVED { background: var(--green-bg); color: var(--green); }
+  .status-REJECTED { background: var(--red-bg); color: var(--red); }
+  .status-alias_match, .status-candidate_match { background: var(--green-bg); color: var(--green); }
+  .status-weak_match { background: var(--yellow-bg); color: var(--yellow); }
+  .status-no_match, .status-error { background: var(--red-bg); color: var(--red); }
+  .rec-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .rec-card .meta { color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+  pre {
+    background: var(--panel-3);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 12px;
+    max-width: 900px;
+    color: #93c5fd;
+  }
+  .empty { color: var(--text-dim); font-size: 13px; }
+  .candidate-row {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .candidate-row:last-child { border-bottom: none; }
+  .candidate-row .meta { color: var(--text-dim); font-size: 11px; margin: 0 6px; }
+  .candidate-row .thumb-btn { padding: 3px 8px; margin-left: 4px; }
+  .candidates-cell { min-width: 260px; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .callout-info {
+    background: rgba(96, 165, 250, 0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 12.5px;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .request-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .request-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h1>&#9679; Data Mosaic</h1>
+  
+  <div class="nav-tabs">
+    <div class="nav-item active" onclick="switchTab('user-tab')">
+      <span>Discover &amp; Request</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('admin-tab')">
+      <span>Owner Approvals</span>
+      <span class="badge" id="pendingCountBadge">0</span>
+    </div>
+  </div>
+
+  <div class="sidebar-section-title">Governed Data Products</div>
+  <div id="sidebarProducts" class="sidebar-scroll"><div class="empty" style="padding:12px;">Loading data products...</div></div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div><strong>data-mosaic-506420</strong> &middot; Google Cloud Knowledge Catalog &amp; BigQuery</div>
+    <div class="owner-badge-container">
+      <span id="currentViewLabel" class="status-badge status-candidate_match">Public Workspace</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TAB 1: User Discovery & Data Product Request Flow -->
+    <div id="user-tab" class="tab-content active">
+
+      <div class="panel">
+        <h2>1. Search existing data products</h2>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="searchQuery" placeholder="e.g. customer support ticket data, ecommerce orders">
+          <button id="searchBtn">Search</button>
+        </div>
+        <div id="searchResults" class="empty" style="margin-top:12px;">No search run yet.</div>
+      </div>
+
+      <div class="panel">
+        <h2>2. Upload Schema / Attributes for Semantic Analysis</h2>
+        <div class="callout-info">
+          Upload CSV, JSON, or Excel data to match against enterprise catalog glossary terms or generate AI semantic recommendations.
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <input type="file" id="fileInput" accept=".csv,.json,.xlsx">
+          <button id="uploadBtn">Analyze Schema</button>
+        </div>
+        <div id="uploadStatus" class="empty" style="margin-top:10px;"></div>
+        <div id="uploadResults"></div>
+      </div>
+
+      <!-- Data Product Request Form Panel -->
+      <div class="panel" id="createProductPanel" style="display:none;">
+        <h2>3. Submit Data Product Creation Request</h2>
+        <div class="callout-info">
+          Define attributes and business requirements. Once submitted, your request will be reviewed and approved by the <strong>Platform Owner</strong> before physical tables are provisioned in BigQuery.
+        </div>
+
+        <h3 style="font-size:13px; color:var(--text-dim); text-transform:uppercase; margin-top:18px;">Proposed Schema &amp; Attributes</h3>
+        <table id="approvedAttributesTable">
+          <tr><th>Column Name</th><th>Description</th><th></th></tr>
+        </table>
+        <button id="addAttributeBtn" class="secondary" style="margin-top:10px;">+ Add attribute</button>
+
+        <div style="margin-top:22px; border-top:1px solid var(--border); padding-top:18px;">
+          <button id="suggestProductMetaBtn" class="secondary" style="margin-bottom:14px;">Suggest Name &amp; Domain (AI)</button>
+          
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Data Product Name</label>
+              <input type="text" id="productName" placeholder="e.g. campaign_conversion_mart">
+              <div class="form-hint">Physical BigQuery table will be named after this.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Business Domain</label>
+              <input type="text" id="productDomain" placeholder="e.g. Marketing &amp; Sales">
+              <div class="form-hint">Enterprise governance domain classification.</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Requested By (Lead / Team / Email)</label>
+              <input type="text" id="requestedBy" placeholder="e.g. Alex Morgan (Marketing Analytics Lead, alex@company.com)">
+              <div class="form-hint">Contact person for data stewardship and ownership.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target SLA / Use Case Type</label>
+              <input type="text" id="useCaseType" placeholder="e.g. Executive Dashboards &amp; ML Modeling">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Business Justification &amp; Data Product Requirement</label>
+            <textarea id="businessJustification" placeholder="Describe the business problem this data product solves, target downstream consumers, and required grain or update frequency..."></textarea>
+            <div class="form-hint">Required for Platform Owner review and BigQuery provisioning approval.</div>
+          </div>
+
+          <div id="suggestMetaReason" class="empty" style="margin: 8px 0;"></div>
+          
+          <button id="submitRequestBtn" style="margin-top:12px; padding: 11px 22px; font-size:14px;">
+            Submit Request for Platform Approval
+          </button>
+        </div>
+        <div id="createProductResult" style="margin-top:14px;"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Recent Data Product Requests</h2>
+        <p class="empty">Status of submitted creation requests awaiting Platform Owner review.</p>
+        <button id="refreshUserRequestsBtn" class="secondary" style="margin-bottom:12px;">Refresh Requests</button>
+        <table id="userRequestsTable">
+          <tr><th>Request ID</th><th>Product Name</th><th>Domain</th><th>Requested By</th><th>Status</th><th>Updated</th></tr>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h2>Learned Semantic Aliases (Global Governance)</h2>
+        <p class="empty">Approved attribute matches enrich the global semantic cache so future schemas resolve instantly.</p>
+        <button id="refreshAliasesBtn" class="secondary" style="margin-bottom:10px;">Refresh Aliases</button>
+        <table id="aliasesTable">
+          <tr><th>Raw Attribute Name</th><th>Learned Match</th><th></th></tr>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: Platform Owner Review & Approvals Portal -->
+    <div id="admin-tab" class="tab-content">
+      <div class="panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Platform Owner &middot; Data Product Review &amp; Provisioning Portal</h2>
+          <div id="ownerAuthStatus"></div>
+        </div>
+        <div class="callout-info">
+          As the <strong>Platform Owner</strong>, you review submitted requirements, inspect the proposed schema, and authorize physical BigQuery table provisioning into the curated dataset.
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <label class="form-label" style="margin:0;">Filter:</label>
+            <select id="adminStatusFilter" style="width:160px;" onchange="loadAdminRequests()">
+              <option value="">All Statuses</option>
+              <option value="PENDING" selected>Pending Approval</option>
+              <option value="APPROVED">Approved</option>
+              <option value="REJECTED">Rejected</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button id="refreshAdminRequestsBtn" class="secondary" onclick="loadAdminRequests(true)">Refresh</button>
+            <button id="changeOwnerPasswordBtn" class="secondary" onclick="resetOwnerPassword()">Re-enter Password</button>
+          </div>
+        </div>
+
+        <div id="adminRequestsList">
+          <div class="empty">Loading pending requests...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let lastUploadResults = [];
+let lastRecommendations = {};
+let approvedAttributes = [];
+let platformOwnerPassword = sessionStorage.getItem("platform_owner_password") || "";
+
+// Open API fetch: No global API key required for public actions
+async function apiFetch(url, options = {}) {
+  const headers = { ...(options.headers || {}) };
+  return fetch(url, { ...options, headers });
+}
+
+// Authenticated API fetch for Platform Owner actions (requires password)
+async function adminFetch(url, options = {}) {
+  if (!platformOwnerPassword) {
+    const input = window.prompt("Enter Platform Owner Password to access:");
+    if (!input) throw new Error("Platform Owner password required.");
+    platformOwnerPassword = input.trim();
+    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
+  }
+  const headers = {
+    ...(options.headers || {}),
+    'X-Platform-Owner-Password': platformOwnerPassword
+  };
+  const res = await fetch(url, { ...options, headers });
+  if (res.status === 401) {
+    sessionStorage.removeItem("platform_owner_password");
+    platformOwnerPassword = "";
+    const retryInput = window.prompt("Incorrect Platform Owner password. Try again:");
+    if (!retryInput) throw new Error("Unauthorized: Incorrect password.");
+    platformOwnerPassword = retryInput.trim();
+    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
+    return adminFetch(url, options);
+  }
+  return res;
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+
+  const viewBadge = document.getElementById('currentViewLabel');
+  if (tabId === 'admin-tab') {
+    document.querySelectorAll('.nav-item')[1].classList.add('active');
+    viewBadge.textContent = 'Platform Owner Mode';
+    viewBadge.className = 'status-badge status-weak_match';
+    updateOwnerAuthUI();
+    loadAdminRequests(true);  // force-refresh from server on tab switch
+  } else {
+    document.querySelectorAll('.nav-item')[0].classList.add('active');
+    viewBadge.textContent = 'Public Workspace';
+    viewBadge.className = 'status-badge status-candidate_match';
+    loadUserRequests();
+  }
+}
+
+document.getElementById('searchBtn').addEventListener('click', doSearch);
+document.getElementById('uploadBtn').addEventListener('click', doUpload);
+document.getElementById('submitRequestBtn').addEventListener('click', submitDataProductRequest);
+document.getElementById('refreshAliasesBtn').addEventListener('click', loadAliases);
+document.getElementById('refreshUserRequestsBtn').addEventListener('click', loadUserRequests);
+
+// Initial loads
+loadAliases();
+loadSidebarProducts();
+loadUserRequests();
+
+async function loadAliases() {
+  const table = document.getElementById('aliasesTable');
+  try {
+    const res = await apiFetch('/api/aliases');
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    table.innerHTML = '<tr><th>Raw Attribute Name</th><th>Learned Match</th><th></th></tr>';
+    if (!data.aliases || data.aliases.length === 0) {
+      const row = document.createElement('tr');
+      row.innerHTML = '<td colspan="3" class="empty">No aliases learned yet.</td>';
+      table.appendChild(row);
+      return;
+    }
+
+    data.aliases.forEach(a => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${escapeHtml(a.raw_name)}</td>
+        <td>${escapeHtml(a.canonical_term)}</td>
+        <td><button class="reject revoke-alias-btn" data-raw-name="${escapeHtml(a.raw_name)}" style="padding:4px 10px; font-size:11px;">Revoke</button></td>
+      `;
+      table.appendChild(row);
+    });
+
+    table.querySelectorAll('.revoke-alias-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        await apiFetch(`/api/aliases/${encodeURIComponent(btn.dataset.rawName)}`, { method: 'DELETE' });
+        loadAliases();
+      });
+    });
+  } catch (err) {
+    table.innerHTML = `<tr><td colspan="3" style="color:#e06666;">Error loading aliases: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+async function loadSidebarProducts() {
+  const el = document.getElementById('sidebarProducts');
+  try {
+    const res = await apiFetch('/api/data-products');
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    if (!data.results || data.results.length === 0) {
+      el.innerHTML = '<div class="empty" style="padding:12px;">No data products yet.</div>';
+      return;
+    }
+
+    const byDomain = {};
+    data.results.forEach(p => {
+      const domain = p.domain || 'Unassigned';
+      if (!byDomain[domain]) byDomain[domain] = [];
+      byDomain[domain].push(p);
+    });
+
+    el.innerHTML = Object.keys(byDomain).sort().map(domain => `
+      <div class="domain-group">
+        <div class="domain-title">${escapeHtml(domain)}</div>
+        ${byDomain[domain].map(p => `
+          <div class="product-item">
+            <div style="font-weight:600;">${escapeHtml(p.name)}</div>
+            <div class="owner">${escapeHtml(p.owner || 'No owner assigned')}</div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+  } catch (err) {
+    el.innerHTML = `<div class="empty" style="padding:12px; color:#e06666;">Error loading products</div>`;
+  }
+}
+
+async function doSearch() {
+  const query = document.getElementById('searchQuery').value;
+  const el = document.getElementById('searchResults');
+  el.textContent = 'Searching...';
+  try {
+    const res = await apiFetch('/api/search', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query})
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    if (!data.results || data.results.length === 0) {
+      el.innerHTML = '<span class="empty">No data products found.</span>';
+      return;
+    }
+
+    el.innerHTML = data.results.map(p => `
+      <div class="rec-card" style="margin-bottom:10px;">
+        <b>${escapeHtml(p.name)}</b>
+        ${p.description ? `<div class="meta" style="margin-top:4px;">${escapeHtml(p.description)}</div>` : ''}
+        ${p.fields && p.fields.length ? `
+          <div style="margin-top:8px;">
+            ${p.fields.map(f => `<span class="status-badge status-candidate_match" style="margin:2px;">${escapeHtml(f.name)}</span>`).join('')}
+          </div>
+        ` : '<div class="meta" style="margin-top:6px;">No field info available.</div>'}
+      </div>
+    `).join('');
+  } catch (err) {
+    el.innerHTML = `<span style="color:#e06666;">Error: ${escapeHtml(err.message)}</span>`;
+  }
+}
+
+async function doUpload() {
+  const fileInput = document.getElementById('fileInput');
+  const statusEl = document.getElementById('uploadStatus');
+  const resultsEl = document.getElementById('uploadResults');
+
+  if (!fileInput.files.length) {
+    statusEl.textContent = 'Choose a file first.';
+    return;
+  }
+
+  statusEl.textContent = 'Uploading and running semantic analysis...';
+  resultsEl.innerHTML = '';
+
+  const formData = new FormData();
+  formData.append('file', fileInput.files[0]);
+
+  try {
+    const res = await apiFetch('/api/upload', { method: 'POST', body: formData });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Server returned ${res.status}: ${errText}`);
+    }
+    const data = await res.json();
+    lastUploadResults = data.results;
+    statusEl.textContent = `Found ${data.attribute_count} attributes in ${data.file_name}. Match or suggest metadata below:`;
+    renderResultsTable(data.results);
+  } catch (err) {
+    statusEl.textContent = 'Upload failed: ' + err.message;
+    console.error(err);
+  }
+}
+
+function renderResultsTable(results) {
+  const container = document.getElementById('uploadResults');
+  container.innerHTML = '';
+
+  const table = document.createElement('table');
+  const header = document.createElement('tr');
+  header.innerHTML = '<th>Attribute</th><th>Sample Values</th><th>Status</th><th>Candidate Matches</th><th>AI Suggestion</th>';
+  table.appendChild(header);
+
+  results.forEach((r, index) => {
+    const row = document.createElement('tr');
+    row.id = `result-row-${index}`;
+    const status = r.match_result.status;
+    const mr = r.match_result;
+
+    let candidates = [];
+    if (status === 'candidate_match' && mr.match) {
+      candidates = [mr.match];
+    } else if (status === 'weak_match' && mr.all_candidates) {
+      candidates = mr.all_candidates;
+    }
+
+    let candidatesHtml = '&mdash;';
+    if (status === 'alias_match') {
+      candidatesHtml = `<div class="candidate-row"><b>${escapeHtml(mr.canonical_term)}</b> <span class="meta">(learned alias)</span></div>`;
+    } else if (candidates.length) {
+      candidatesHtml = candidates.map((c, cIdx) => {
+        const key = `${index}-${cIdx}`;
+        const rawScore = c.confidence != null ? c.confidence : (c.similarity_score != null ? c.similarity_score : null);
+        const scoreVal = (rawScore !== null && !isNaN(Number(rawScore))) ? Number(rawScore) : 0;
+        const pctDisplay = (scoreVal * 100).toFixed(0);
+        return `
+          <div class="candidate-row">
+            <b>${escapeHtml(c.column_name)}</b>
+            <span class="meta">${escapeHtml(c.table_name)} &middot; ${pctDisplay}%</span>
+            <button id="thumb-up-${key}" class="approve thumb-btn" onclick="sendMatchFeedback(${index}, ${cIdx}, 'approved', '${escapeHtml(c.column_name)}', ${scoreVal})">&#128077;</button>
+            <button id="thumb-down-${key}" class="reject thumb-btn" onclick="sendMatchFeedback(${index}, ${cIdx}, 'rejected', '${escapeHtml(c.column_name)}', ${scoreVal})">&#128078;</button>
+            <span id="candidate-status-${key}" style="font-size:11px; margin-left:6px;"></span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const sampleDisplay = Array.isArray(r.attribute.sample_values)
+      ? r.attribute.sample_values.slice(0, 3).map(v => String(v)).join(', ')
+      : '';
+
+    row.innerHTML = `
+      <td><b>${escapeHtml(r.attribute.name)}</b><br><span class="meta">${escapeHtml(r.attribute.inferred_type || '')}</span></td>
+      <td><span class="meta">${escapeHtml(sampleDisplay)}</span></td>
+      <td><span class="status-badge status-${status}">${escapeHtml(status)}</span></td>
+      <td class="candidates-cell">${candidatesHtml}</td>
+      <td><button class="secondary" style="font-size:12px; padding:5px 10px;" onclick="getRecommendation(${index})">Suggest New</button></td>
+    `;
+    table.appendChild(row);
+  });
+
+  container.appendChild(table);
+}
+
+const candidateDecisions = {};
+
+async function sendMatchFeedback(index, cIdx, action, matchedName, confidence) {
+  const attribute = lastUploadResults[index].attribute;
+  const key = `${index}-${cIdx}`;
+  const previous = candidateDecisions[key];
+  const upBtn = document.getElementById(`thumb-up-${key}`);
+  const downBtn = document.getElementById(`thumb-down-${key}`);
+  const statusEl = document.getElementById(`candidate-status-${key}`);
+
+  const newAction = (previous === action) ? 'none' : action;
+
+  try {
+    await apiFetch('/api/match-feedback', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        attribute_name: attribute.name,
+        sample_values: attribute.sample_values,
+        matched_column_name: matchedName,
+        confidence: confidence,
+        user_action: newAction
+      })
+    });
+
+    const existingIdx = approvedAttributes.findIndex(a => a.name === attribute.name);
+    if (newAction === 'approved' && existingIdx === -1) {
+      approvedAttributes.push({ name: attribute.name, inferred_type: attribute.inferred_type, description: `Matched to ${matchedName}` });
+    } else if (newAction !== 'approved' && existingIdx !== -1) {
+      approvedAttributes.splice(existingIdx, 1);
+    }
+    renderApprovedList();
+
+    candidateDecisions[key] = (newAction === 'none') ? undefined : newAction;
+    upBtn.classList.toggle('active', candidateDecisions[key] === 'approved');
+    downBtn.classList.toggle('active', candidateDecisions[key] === 'rejected');
+
+    if (candidateDecisions[key] === 'approved') {
+      statusEl.textContent = '✓ Approved';
+      statusEl.style.color = '#34d399';
+    } else if (candidateDecisions[key] === 'rejected') {
+      statusEl.textContent = '✗ Rejected';
+      statusEl.style.color = '#f87171';
+    } else {
+      statusEl.textContent = '';
+    }
+  } catch (err) {
+    alert('Failed to record match feedback: ' + err.message);
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+async function getRecommendation(index) {
+  const attribute = lastUploadResults[index].attribute;
+  const container = document.getElementById('uploadResults');
+
+  const loadingCard = document.createElement('div');
+  loadingCard.className = 'rec-card';
+  loadingCard.textContent = `Generating AI suggestion for ${attribute.name}...`;
+  container.appendChild(loadingCard);
+
+  try {
+    const res = await apiFetch('/api/recommend', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        attribute_name: attribute.name,
+        sample_values: attribute.sample_values
+      })
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const rec = await res.json();
+    lastRecommendations[index] = rec;
+
+    loadingCard.innerHTML = `
+      <b>${escapeHtml(attribute.name)}</b>
+      <div class="meta">
+        Suggested term: <b>${escapeHtml(rec.suggested_glossary_term || '')}</b><br>
+        Definition: ${escapeHtml(rec.definition || '')}<br>
+        Domain: ${escapeHtml(rec.suggested_domain || '')} / ${escapeHtml(rec.suggested_subdomain || '')} &middot;
+        Source app: ${escapeHtml(rec.suggested_source_application || 'NA')} &middot;
+        Confidence: ${rec.confidence}
+      </div>
+      <div style="margin-top:10px;">
+        <button class="approve" style="padding:4px 12px;" onclick="handleRecDecision(${index}, 'approved', this)">Approve &amp; Add</button>
+        <button class="reject" style="padding:4px 12px;" onclick="handleRecDecision(${index}, 'rejected', this)">Reject</button>
+      </div>
+    `;
+  } catch (err) {
+    loadingCard.innerHTML = `<span style="color:#f87171;">Error: ${escapeHtml(err.message)}</span>`;
+  }
+}
+
+async function handleRecDecision(index, action, btnEl) {
+  const rec = lastRecommendations[index];
+  const attribute = lastUploadResults[index].attribute;
+  const cardEl = btnEl.closest('.rec-card');
+
+  try {
+    await apiFetch('/api/feedback', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        attribute_name: attribute.name,
+        sample_values: attribute.sample_values,
+        suggested_glossary_term: rec.suggested_glossary_term || '',
+        suggested_domain: rec.suggested_domain || '',
+        suggested_subdomain: rec.suggested_subdomain || '',
+        suggested_source_application: rec.suggested_source_application || '',
+        confidence: rec.confidence || 0,
+        user_action: action
+      })
+    });
+
+    const note = document.createElement('span');
+    note.style.marginLeft = '10px';
+    note.style.fontSize = '12px';
+    if (action === 'approved') {
+      note.textContent = '✓ Approved and added to schema';
+      note.style.color = '#34d399';
+    } else {
+      note.textContent = '✗ Rejected';
+      note.style.color = '#f87171';
+    }
+    cardEl.querySelectorAll('button').forEach(b => b.remove());
+    cardEl.appendChild(note);
+
+    if (action === 'approved') {
+      approvedAttributes.push({
+        name: attribute.name,
+        inferred_type: attribute.inferred_type,
+        description: rec.definition || rec.suggested_glossary_term || ''
+      });
+      renderApprovedList();
+    }
+  } catch (err) {
+    alert('Failed to record feedback: ' + err.message);
+  }
+}
+
+function renderApprovedList() {
+  const panel = document.getElementById('createProductPanel');
+  const table = document.getElementById('approvedAttributesTable');
+
+  if (approvedAttributes.length === 0) {
+    panel.style.display = 'none';
+    return;
+  }
+  panel.style.display = 'block';
+
+  table.innerHTML = '<tr><th>Column Name</th><th>Description</th><th></th></tr>';
+  approvedAttributes.forEach((attr, i) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><input type="text" class="attr-name-input" data-i="${i}" value="${escapeHtml(attr.name)}"></td>
+      <td><input type="text" class="attr-desc-input" data-i="${i}" value="${escapeHtml(attr.description || '')}" style="width:95%;"></td>
+      <td><button class="reject remove-attr-btn" data-i="${i}" style="padding:4px 10px;">&times;</button></td>
+    `;
+    table.appendChild(row);
+  });
+
+  table.querySelectorAll('.attr-name-input').forEach(inp => {
+    inp.addEventListener('input', () => { approvedAttributes[parseInt(inp.dataset.i)].name = inp.value; });
+  });
+  table.querySelectorAll('.attr-desc-input').forEach(inp => {
+    inp.addEventListener('input', () => { approvedAttributes[parseInt(inp.dataset.i)].description = inp.value; });
+  });
+  table.querySelectorAll('.remove-attr-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      approvedAttributes.splice(parseInt(btn.dataset.i), 1);
+      renderApprovedList();
+    });
+  });
+}
+
+document.getElementById('addAttributeBtn').addEventListener('click', () => {
+  approvedAttributes.push({ name: '', inferred_type: 'object', description: '' });
+  document.getElementById('createProductPanel').style.display = 'block';
+  renderApprovedList();
+});
+
+document.getElementById('suggestProductMetaBtn').addEventListener('click', suggestProductMeta);
+
+async function suggestProductMeta() {
+  const reasonEl = document.getElementById('suggestMetaReason');
+  if (approvedAttributes.length === 0) {
+    reasonEl.textContent = 'Add or approve at least one attribute first.';
+    return;
+  }
+  reasonEl.textContent = 'Generating AI suggestions for product name & domain...';
+
+  try {
+    const res = await apiFetch('/api/suggest-product-meta', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ attributes: approvedAttributes.map(a => ({ name: a.name, description: a.description })) })
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    const nameInput = document.getElementById('productName');
+    const domainInput = document.getElementById('productDomain');
+    if (!nameInput.value.trim()) nameInput.value = data.suggested_product_name || '';
+    if (!domainInput.value.trim()) domainInput.value = data.suggested_domain || '';
+
+    reasonEl.textContent = data.reasoning || '';
+  } catch (err) {
+    reasonEl.textContent = 'Error getting suggestion: ' + err.message;
+  }
+}
+
+async function submitDataProductRequest() {
+  const productName = document.getElementById('productName').value.trim();
+  const domain = document.getElementById('productDomain').value.trim();
+  const requestedBy = document.getElementById('requestedBy').value.trim();
+  const businessJustification = document.getElementById('businessJustification').value.trim();
+  const useCaseType = document.getElementById('useCaseType').value.trim();
+  const resultEl = document.getElementById('createProductResult');
+
+  if (!productName || !domain) {
+    resultEl.innerHTML = '<span style="color:#f87171;">Enter a product name and domain first.</span>';
+    return;
+  }
+  if (!requestedBy) {
+    resultEl.innerHTML = '<span style="color:#f87171;">Please specify who is requesting this data product (Requested By).</span>';
+    return;
+  }
+  if (!businessJustification) {
+    resultEl.innerHTML = '<span style="color:#f87171;">Please provide a business justification and requirement summary.</span>';
+    return;
+  }
+  if (approvedAttributes.length === 0 || approvedAttributes.some(a => !a.name.trim())) {
+    resultEl.innerHTML = '<span style="color:#f87171;">Every attribute in the schema needs a valid name.</span>';
+    return;
+  }
+
+  resultEl.textContent = 'Submitting request for Platform Owner approval...';
+
+  const combinedJustification = useCaseType ? `[SLA/Use Case: ${useCaseType}] ${businessJustification}` : businessJustification;
+
+  try {
+    const res = await apiFetch('/api/requests/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        product_name: productName,
+        domain: domain,
+        requested_by: requestedBy,
+        business_justification: combinedJustification,
+        attributes: approvedAttributes
+      })
+    });
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => null);
+      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
+    }
+    const data = await res.json();
+    resultEl.innerHTML = `
+      <div class="rec-card" style="border-left: 4px solid var(--green);">
+        <b style="color:var(--green);">✓ Request Submitted Successfully!</b><br>
+        <div class="meta" style="margin-top:6px;">
+          <strong>Request ID:</strong> <code>${escapeHtml(data.request_id)}</code> &middot;
+          <strong>Status:</strong> <span class="status-badge status-PENDING">PENDING APPROVAL</span><br>
+          <strong>Product Name:</strong> ${escapeHtml(data.product_name)} (${escapeHtml(data.domain)})<br>
+          <strong>Requester:</strong> ${escapeHtml(data.requested_by)}<br>
+          <em>The Platform Owner will review your request. Once approved, the physical table will be provisioned in BigQuery.</em>
+        </div>
+      </div>
+    `;
+    loadUserRequests();
+  } catch (err) {
+    resultEl.innerHTML = `<span style="color:#f87171;">Submission Error: ${escapeHtml(err.message)}</span>`;
+  }
+}
+
+async function loadUserRequests() {
+  const table = document.getElementById('userRequestsTable');
+  try {
+    const res = await apiFetch('/api/requests');
+    if (!res.ok) return;
+    const data = await res.json();
+    const list = data.requests || [];
+
+    const pending = list.filter(r => r.status === 'PENDING').length;
+    document.getElementById('pendingCountBadge').textContent = pending;
+
+    table.innerHTML = '<tr><th>Request ID</th><th>Product Name</th><th>Domain</th><th>Requested By</th><th>Status</th><th>Updated</th></tr>';
+    if (list.length === 0) {
+      table.innerHTML += '<tr><td colspan="6" class="empty">No requests submitted yet.</td></tr>';
+      return;
+    }
+
+    list.forEach(r => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><code>${escapeHtml(r.request_id)}</code></td>
+        <td><b>${escapeHtml(r.product_name)}</b></td>
+        <td>${escapeHtml(r.domain)}</td>
+        <td>${escapeHtml(r.requested_by || 'Unknown')}</td>
+        <td><span class="status-badge status-${r.status}">${escapeHtml(r.status)}</span></td>
+        <td class="meta">${escapeHtml((r.updated_at || r.created_at || '').slice(0, 19).replace('T', ' '))}</td>
+      `;
+      table.appendChild(row);
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// --- Platform Owner Admin Management ---
+
+let cachedAdminRequests = null;  // Cache so filter changes don't re-fetch
+
+async function fetchAdminRequests() {
+  // Fetches from server and caches. Only call when you need fresh data.
+  const res = await adminFetch('/api/admin/requests');
+  if (!res.ok) throw new Error(`Server returned ${res.status}`);
+  const data = await res.json();
+  cachedAdminRequests = data.requests || [];
+  updateOwnerAuthUI();  // Auth succeeded — update the badge
+  return cachedAdminRequests;
+}
+
+function renderAdminRequests(requests) {
+  const container = document.getElementById('adminRequestsList');
+  const statusFilter = document.getElementById('adminStatusFilter').value;
+
+  let filtered = requests;
+  if (statusFilter) {
+    filtered = requests.filter(r => r.status === statusFilter);
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty" style="padding:20px 0;">No ${statusFilter ? statusFilter.toLowerCase() : ''} requests found.</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(r => `
+    <div class="request-card" id="admin-req-card-${r.request_id}">
+      <div class="request-card-header">
+        <div>
+          <span style="font-size:16px; font-weight:700;">${escapeHtml(r.product_name)}</span>
+          <span class="status-badge status-candidate_match" style="margin-left:8px;">${escapeHtml(r.domain)}</span>
+          <span class="status-badge status-${r.status}" style="margin-left:6px;">${escapeHtml(r.status)}</span>
+        </div>
+        <div class="meta">Request ID: <code>${escapeHtml(r.request_id)}</code></div>
+      </div>
+
+      <div class="meta" style="margin-bottom:8px;">
+        <strong>Requested by:</strong> ${escapeHtml(r.requested_by || 'Not specified')} &middot;
+        <strong>Submitted:</strong> ${escapeHtml((r.created_at || '').slice(0, 19).replace('T', ' '))}
+      </div>
+
+      <div style="background:var(--panel); padding:10px 12px; border-radius:6px; margin:10px 0; font-size:12.5px;">
+        <strong>Business Justification &amp; Requirement:</strong><br>
+        <span style="color:var(--text);">${escapeHtml(r.business_justification || 'No justification provided.')}</span>
+      </div>
+
+      <div style="margin:10px 0;">
+        <strong style="font-size:12px; text-transform:uppercase; color:var(--text-dim);">Requested Schema Columns:</strong>
+        <div style="margin-top:6px;">
+          ${(r.attributes || []).map(a => `
+            <span class="status-badge status-candidate_match" style="margin:2px; font-weight:normal;">
+              <strong>${escapeHtml(a.name)}</strong> (${escapeHtml(a.inferred_type || 'STRING')})
+            </span>
+          `).join('')}
+        </div>
+      </div>
+
+      ${r.table_full_name ? `
+        <div class="meta" style="color:var(--green); margin-top:8px;">
+          <strong>BigQuery Physical Table:</strong> <code>${escapeHtml(r.table_full_name)}</code>
+        </div>
+      ` : ''}
+
+      ${r.reviewer_notes ? `
+        <div class="meta" style="margin-top:4px;">
+          <strong>Reviewer Notes:</strong> ${escapeHtml(r.reviewer_notes)}
+        </div>
+      ` : ''}
+
+      ${r.status === 'PENDING' ? `
+        <div style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px; display:flex; gap:10px; align-items:center;">
+          <input type="text" id="admin-notes-${r.request_id}" placeholder="Reviewer notes / approval comments (optional)" style="width:50%;">
+          <button class="approve" onclick="approveRequest('${r.request_id}')">Approve &amp; Write to BigQuery</button>
+          <button class="reject" onclick="rejectRequest('${r.request_id}')">Reject</button>
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+async function loadAdminRequests(forceRefresh) {
+  const container = document.getElementById('adminRequestsList');
+
+  // If we already have cached data and this is just a filter change, render from cache
+  if (cachedAdminRequests && !forceRefresh) {
+    renderAdminRequests(cachedAdminRequests);
+    return;
+  }
+
+  container.innerHTML = '<div class="empty">Loading requests...</div>';
+
+  try {
+    const requests = await fetchAdminRequests();
+    renderAdminRequests(requests);
+  } catch (err) {
+    container.innerHTML = `<div style="color:#f87171; padding:20px 0;">Error loading admin requests: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+async function approveRequest(requestId) {
+  const notesInput = document.getElementById(`admin-notes-${requestId}`);
+  const reviewerNotes = notesInput ? notesInput.value.trim() : '';
+
+  if (!confirm(`Are you sure you want to approve request ${requestId} and provision the physical table in BigQuery?`)) return;
+
+  try {
+    const res = await adminFetch(`/api/admin/requests/${requestId}/approve`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ reviewer_notes: reviewerNotes })
+    });
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => null);
+      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
+    }
+    const data = await res.json();
+    alert(`Success! Table ${data.table_creation.table_full_name} created in BigQuery and registered as a data product.`);
+    loadAdminRequests();
+    loadSidebarProducts();
+    loadUserRequests();
+  } catch (err) {
+    alert('Approval failed: ' + err.message);
+  }
+}
+
+async function rejectRequest(requestId) {
+  const notesInput = document.getElementById(`admin-notes-${requestId}`);
+  const reviewerNotes = notesInput ? notesInput.value.trim() : '';
+  const reason = prompt("Enter rejection reason for requester:", reviewerNotes) || "";
+
+  try {
+    const res = await adminFetch(`/api/admin/requests/${requestId}/reject`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ reviewer_notes: reason })
+    });
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => null);
+      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
+    }
+    alert(`Request ${requestId} has been marked as REJECTED.`);
+    loadAdminRequests();
+    loadUserRequests();
+  } catch (err) {
+    alert('Rejection failed: ' + err.message);
+  }
+}
+
+function updateOwnerAuthUI() {
+  const el = document.getElementById('ownerAuthStatus');
+  if (!el) return;
+  if (platformOwnerPassword) {
+    el.innerHTML = '<span class="status-badge status-APPROVED">Authenticated as Owner</span>';
+  } else {
+    el.innerHTML = '<span class="status-badge status-PENDING">Password Required</span>';
+  }
+}
+
+function resetOwnerPassword() {
+  sessionStorage.removeItem("platform_owner_password");
+  platformOwnerPassword = "";
+  const input = window.prompt("Enter Platform Owner Password:");
+  if (input && input.trim()) {
+    platformOwnerPassword = input.trim();
+    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
+    updateOwnerAuthUI();
+    loadAdminRequests();
+  }
+}
+</script>
+
+</body>
+</html>
