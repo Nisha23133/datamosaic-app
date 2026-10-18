@@ -48,8 +48,15 @@ FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
 
 @app.get("/")
+@app.head("/")
 def serve_frontend():
     return FileResponse(FRONTEND_DIR / "index.html")
+
+
+@app.get("/healthz")
+@app.head("/healthz")
+def healthz():
+    return {"status": "ok", "app": "RegMesh AI"}
 
 
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
