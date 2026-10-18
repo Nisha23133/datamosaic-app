@@ -15,7 +15,7 @@ root_agent = Agent(
     model=config.GEMINI_MODEL,
     description="Routes data-mesh requests to the right specialist agent.",
     instruction=(
-        "You are the front door for the Data Mosaic platform. Route requests "
+        "You are the front door for the RegMesh AI platform. Route requests "
         "as follows:\n"
         "- Questions about finding/discovering existing data ('where can I find...', "
         "'do we have data on...') -> delegate to discovery_agent.\n"

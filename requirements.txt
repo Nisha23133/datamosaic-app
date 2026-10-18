@@ -8,3 +8,6 @@ google-cloud-aiplatform>=1.87.0
 google-cloud-bigquery==3.25.0
 google-adk==0.1.0
 python-dotenv==1.0.1
+Deprecated>=1.2.14
+requests>=2.31.0
+

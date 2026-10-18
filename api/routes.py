@@ -29,6 +29,8 @@ from tools.product_request_store import (
     list_product_requests,
     get_product_request,
     update_product_request_status,
+    delete_product_request,
+    clear_all_product_requests,
 )
 
 # Open router for general access: discovery, uploads, AI recommendations, request submission
@@ -40,23 +42,30 @@ admin_router = APIRouter(prefix="/admin", dependencies=[Depends(verify_platform_
 _executor = ThreadPoolExecutor(max_workers=6)
 
 
-def _match_one(attr: dict) -> dict:
+def _process_attribute(attr: dict) -> dict:
     start = time.time()
+    # 1. Semantic catalog matching
     match_result = match_attribute_tool(
         attribute_name=attr["name"],
         sample_values=attr["sample_values"],
         description="",
     )
-    print(f"  [timing] matched '{attr['name']}' in {time.time() - start:.2f}s")
-    return {"attribute": attr, "match_result": match_result}
+    # 2. Generate AI definition and metadata recommendation using Gemini
+    rec_result = recommend_metadata_tool(
+        attribute_name=attr["name"],
+        sample_values=attr["sample_values"],
+        description="",
+    )
+    print(f"  [timing] processed '{attr['name']}' in {time.time() - start:.2f}s")
+    return {"attribute": attr, "match_result": match_result, "recommendation": rec_result}
 
 
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     """
     Accepts a CSV/JSON/XLSX file, parses it, and runs each attribute
-    through the semantic matching pipeline IN PARALLEL. Timing is
-    printed to the terminal at each stage to make slow points visible.
+    through both semantic matching AND Gemini AI definition generation
+    IN PARALLEL. Timing is printed to the terminal at each stage.
     """
     t0 = time.time()
 
@@ -68,18 +77,16 @@ async def upload_file(file: UploadFile = File(...)):
     attributes = parse_uploaded_file(tmp_path)
     print(f"[timing] file parsed: {len(attributes)} attributes in {time.time() - t0:.2f}s")
 
-    # Warm the catalog cache BEFORE the parallel matching starts, so the
-    # one-time build cost happens once and isn't accidentally repeated
-    # by multiple threads racing to build it simultaneously.
+    # Warm the catalog cache BEFORE parallel matching starts
     t1 = time.time()
     get_catalog_embeddings()
     print(f"[timing] catalog cache ready in {time.time() - t1:.2f}s")
 
     t2 = time.time()
     loop = asyncio.get_event_loop()
-    tasks = [loop.run_in_executor(_executor, _match_one, attr) for attr in attributes]
+    tasks = [loop.run_in_executor(_executor, _process_attribute, attr) for attr in attributes]
     results = await asyncio.gather(*tasks)
-    print(f"[timing] all attributes matched in {time.time() - t2:.2f}s")
+    print(f"[timing] all attributes processed (matching + Gemini definitions) in {time.time() - t2:.2f}s")
     print(f"[timing] TOTAL upload time: {time.time() - t0:.2f}s")
 
     return {"file_name": file.filename, "attribute_count": len(attributes), "results": results}
@@ -251,12 +258,47 @@ def get_public_requests():
     return {"requests": list_product_requests()}
 
 
+@router.delete("/requests/{request_id}")
+def remove_product_request(request_id: str):
+    """Delete an individual data product request."""
+    req = get_product_request(request_id)
+    if not req:
+        raise HTTPException(status_code=404, detail=f"Request {request_id} not found.")
+    try:
+        delete_product_request(request_id)
+        return {"status": "deleted", "request_id": request_id}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete request: {e}")
+
+
+@router.delete("/requests")
+def clear_product_requests():
+    """Clear all data product requests from the log."""
+    try:
+        clear_all_product_requests()
+        return {"status": "cleared"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to clear requests: {e}")
+
+
 # --- Platform Owner Admin Endpoints (Require Platform Owner Key) ---
 
 @admin_router.get("/requests")
 def admin_list_requests():
     """Platform owner view: all product requests with full details."""
     return {"requests": list_product_requests()}
+
+
+@admin_router.delete("/requests/{request_id}")
+def admin_remove_product_request(request_id: str):
+    """Platform owner delete individual request."""
+    return remove_product_request(request_id)
+
+
+@admin_router.delete("/requests")
+def admin_clear_product_requests():
+    """Platform owner clear all requests."""
+    return clear_product_requests()
 
 
 class ReviewActionRequest(BaseModel):

@@ -1,5 +1,5 @@
 """
-Central configuration for the Data Mosaic app.
+Central configuration for the RegMesh AI app.
 Change project/dataset/model settings here — nothing else should hardcode these.
 """
 from dotenv import load_dotenv
@@ -14,12 +14,27 @@ LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 # --- BigQuery datasets already built this week ---
 ECOMMERCE_DATASET = "ecommerce_central1"
 SUPPORT_DATASET = "public"          # holds support_tickets (CDC via Datastream)
-CURATED_DATASET = "curated"         # holds customer_360, order_facts
+RAW_BANKING_DATASET = "raw_banking" # holds raw master_entities, counterparty_exposures, daily_fx_rates
+CURATED_DATASET = "curated"         # holds customer_360, order_facts, regulatory marts
 
-# --- BigQuery table used to log AI recommendation feedback and product requests ---
+# --- Financial Regulatory Governance Datasets & Tables ---
 FEEDBACK_DATASET = "governance"
 FEEDBACK_TABLE = "recommendation_feedback"
 REQUESTS_TABLE = "data_product_requests"
+USE_CASES_TABLE = "regulatory_use_cases"
+QUERY_AUDIT_TABLE = "regulatory_query_audits"
+DATA_PRODUCTS_TABLE = "governed_data_products"
+
+# --- Financial Regulatory Reporting Frameworks ---
+FINANCIAL_REGULATORY_FRAMEWORKS = [
+    "BCBS 239 (Risk Data Aggregation & Reporting)",
+    "CCAR / DFAST (Capital Adequacy & Stress Testing)",
+    "MiFID II / MiFIR (Transaction Reporting & Trade Transparency)",
+    "Dodd-Frank (Swap Data & Systemic Risk Reporting)",
+    "AML / KYC (Anti-Money Laundering & Sanctions)",
+    "DORA (Digital Operational Resilience Act)",
+    "Solvency II / Basel III/IV (Liquidity & Capital Ratios)",
+]
 
 # --- Models ---
 GEMINI_MODEL = "gemini-2.5-flash"
@@ -27,12 +42,18 @@ EMBEDDING_MODEL = "text-embedding-005"
 
 # --- Platform Owner Authentication ---
 # Password required for administrative and approval actions by the Platform Owner.
-# General product discovery, matching, and request submission are open to everyone.
-PLATFORM_OWNER_PASSWORD = os.getenv("PLATFORM_OWNER_PASSWORD")
+PLATFORM_OWNER_PASSWORD = os.getenv("PLATFORM_OWNER_PASSWORD", "admin123")
 
 # --- Matching thresholds ---
-# Below this similarity score, treat as "no confident match" and trigger AI recommendation
 MATCH_CONFIDENCE_THRESHOLD = 0.75
 
-# --- Knowledge Catalog domains created manually this week ---
-KNOWN_DOMAINS = ["Customer", "Sales"]
+# --- Financial Governance Domains ---
+KNOWN_DOMAINS = [
+    "Credit Risk",
+    "Market Risk",
+    "Liquidity & Treasury",
+    "Customer Master & KYC",
+    "Regulatory Reporting",
+    "Trade & Transaction Surveillance",
+    "Counterparty & Exposure"
+]

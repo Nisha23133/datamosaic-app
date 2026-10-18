@@ -1,73 +1,128 @@
-# Data Mosaic
+# RegMesh AI - Financial Regulatory Reporting Governance & Data Product Mesh
 
-AI-powered data mesh demo: upload CSV/JSON/XLSX attribute lists, match
-them against your Knowledge Catalog, get AI-suggested metadata for
-anything unmatched, approve/reject/correct with feedback logged for
-future improvement, then register approved attributes as governed
-Data Products.
+[![Cloud Run Deployment](https://img.shields.io/badge/Google%20Cloud-Cloud%20Run%20Deployed-success?logo=googlecloud)](https://datamosaic-app-929907480079.us-central1.run.app)
+[![BigQuery Powered](https://img.shields.io/badge/BigQuery-Governance%20%26%20Lineage-blue?logo=googlebigquery)](https://cloud.google.com/bigquery)
+[![Vertex AI](https://img.shields.io/badge/Vertex%20AI-Gemini%202.5%20Flash-orange?logo=google)](https://cloud.google.com/vertex-ai)
 
-## Setup
+RegMesh AI is an enterprise financial regulatory governance and data product mesh engineered for global financial institutions (G-SIBs, commercial banks, asset managers, and fintechs). It transforms complex compliance mandates into automated, mathematically verifiable data contracts that mitigate supervisory fines and penalties under:
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+- **BCBS 239** (Risk Data Aggregation & Risk Reporting)
+- **CCAR / DFAST** (Comprehensive Capital Analysis & Review / Stress Testing)
+- **MiFID II / MiFIR** (Transaction Reporting & Trade Transparency)
+- **Dodd-Frank** (Swap Data & Systemic Concentration)
+- **DORA** (Digital Operational Resilience Act)
+- **AML / KYC** (Financial Crime, Sanctions & Legal Entity Graphs)
 
-2. **Authenticate to GCP** (if not already done this week):
-   ```bash
-   gcloud auth application-default login
-   gcloud config set project data-mosaic-506420
-   ```
+---
 
-3. **Copy the env template:**
-   ```bash
-   cp .env.example .env
-   ```
-   Edit `.env` if your project/location differ from the defaults in `config.py`.
-   **Also set a real API key** — add `DATAMOSAIC_API_KEY=your-secret-here` to `.env`.
-   Every API call now requires this key (see `api/auth.py`); the browser
-   will prompt for it once per page load. This is a lightweight demo-only
-   protection — before any real deployment, replace it with proper
-   identity-based auth (IAP/OAuth), since a shared static key can't
-   distinguish who did what.
+## 🏛️ 3-Persona Data Mesh Governance Model
 
-## Run locally
+1. **👤 Data Consumer (Risk & Compliance Analysts)**
+   - **Conversational Intake Studio**: Chat with the Vertex AI Gemini agent to state business objectives in plain English.
+   - **Automated 6-Dimension Extraction**: Automatically structures requirements across Description, Business Objective, Expected Penalties Avoided, Data Components (Master IDs), Compliance Rules, and Cryptographic Audit Trail.
+   - **Self-Serve Regulatory Query Hub**: Natural language queries grounded in physical BigQuery schemas with interactive term suggestions.
+
+2. **🛠️ Data Producer (Domain Data Engineers)**
+   - **Review & Approval Gate**: Strict separation of duties — only Data Producers hold authority to approve use cases and publish semantic models.
+   - **Semantic Contract Studio (Edit Mode)**: Review and customize dimensions, risk metrics (`SUM`, `AVG`), and Google Cloud Dataform SQLX pipelines before approving.
+   - **Physical Data Product Materialization**: One-click provisioning of BigQuery analytical marts in the `curated` dataset with automatic schema alignment and dynamic compliance records.
+
+3. **🛡️ Platform Owner (Super Admin / Chief Data Officer)**
+   - **Super-Admin Governance Deck**: Audit overview, policy lifecycle enforcement, and decommissioning authority for use cases and physical data products.
+
+---
+
+## ☁️ Google Cloud Architecture
+
+```
+                                      ┌───────────────────────────────────────────────────────────┐
+                                      │              GOOGLE CLOUD VERTEX AI                       │
+                                      │  • Gemini 2.5 Flash: Autonomous Regulatory Chatbot Agent  │
+                                      │  • Text Embedding 005: Vector Attribute Matching          │
+                                      └─────────────────────────────┬─────────────────────────────┘
+                                                                    │
+┌───────────────────────────────┐                                   ▼                                   ┌───────────────────────────────┐
+│     DATAPLEX CATALOG          │                         REGMESH AI APPLICATION                        │        GOOGLE CLOUD           │
+│   (Knowledge Catalog)         │◄─────────────────────►    FastAPI + Mesh UI    ◄──────────────────────►│           DATAFORM            │
+│ • Schema & Aspect discovery   │                           (Role-Based Access)                         │ • Standardized SQLX templates │
+│ • Business glossary metadata  │                                   │                                   │ • Audit hashes & transforms   │
+│ • Data classification & tags  │                                   ▼                                   └───────────────────────────────┘
+└───────────────────────────────┘                     ┌───────────────────────────┐
+                                                      │     GOOGLE BIGQUERY       │
+                                                      │ • raw_banking (Sources)   │
+                                                      │ • curated (Curated Marts) │
+                                                      │ • governance (Audit Logs) │
+                                                      └───────────────────────────┘
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+├── agents/
+│   ├── orchestrator.py           # Front door routing agent
+│   ├── regulatory_agents.py       # Gemini 2.5 Flash agents for 6-dimension intake & SQL generation
+│   ├── semantic_agent.py         # Catalog matching & metadata suggestions
+│   └── discovery_agent.py        # Dataset discovery
+├── api/
+│   ├── main.py                   # FastAPI application initialization & routing
+│   ├── regulatory_routes.py      # Mesh endpoints (intake, approve, materialize, query, delete)
+│   ├── routes.py                 # Core upload and attribute endpoints
+│   └── auth.py                   # Role and identity helpers
+├── tools/
+│   ├── bigquery_client.py        # Physical DDL execution & table provisioning
+│   ├── regulatory_store.py       # BigQuery governance CRUD (use cases, products, query audits)
+│   ├── catalog_client.py         # Google Cloud Dataplex (Knowledge Catalog) API integration
+│   ├── embeddings.py             # Vertex AI text-embedding-005 vector tools
+│   └── file_parser.py            # CSV/JSON/XLSX attribute ingestion
+├── frontend/
+│   └── index.html                # Responsive web mesh portal (Vanilla CSS/JS, 3 Personas)
+├── config.py                     # Central GCP project, dataset, and framework configurations
+├── requirements.txt              # Production Python dependencies
+├── Dockerfile                    # Container definition for Google Cloud Run
+└── README.md                     # Technical architecture & deployment guide
+```
+
+---
+
+## 🚀 Local Quickstart
+
+### 1. Install Dependencies
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 2. Configure GCP Authentication
+```bash
+gcloud auth application-default login
+gcloud config set project data-mosaic-506420
+```
+
+### 3. Launch Local Server
+```bash
+uvicorn api.main:app --host 127.0.0.1 --port 8080 --reload
+```
+Navigate to:
+- **Web Mesh Application**: [http://127.0.0.1:8080](http://127.0.0.1:8080)
+- **Interactive Swagger Docs**: [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs)
+
+---
+
+## 🌐 Google Cloud Run Deployment
+
+Deploy directly from source using the Cloud SDK:
 
 ```bash
-uvicorn api.main:app --reload --port 8080
+gcloud run deploy datamosaic-app \
+  --source . \
+  --region us-central1 \
+  --project data-mosaic-506420 \
+  --allow-unauthenticated \
+  --set-env-vars GOOGLE_CLOUD_PROJECT=data-mosaic-506420,GOOGLE_CLOUD_LOCATION=us-central1
 ```
 
-Then open:
-- **App UI:** http://127.0.0.1:8080
-- **API docs (interactive):** http://127.0.0.1:8080/docs
-
-## Project layout
-
-```
-config.py              - all project/dataset/model settings
-tools/                  - reusable functions that call GCP APIs
-agents/                 - ADK agent definitions built on top of tools/
-api/                    - FastAPI app exposing everything to the browser
-frontend/index.html     - minimal UI for upload/search/approve flow
-```
-
-## Known placeholders
-
-`tools/catalog_client.py` has two functions (`create_data_domain`,
-`register_data_product`) marked as placeholders — Knowledge Catalog's
-newer Domain/Data Product resources aren't yet in the stable
-`google-cloud-dataplex` client library surface as of this build. Two
-options:
-1. Keep creating domains/data products manually in the Console (as done
-   this week), and use this app for the matching/recommendation flow only.
-2. Replace the placeholder bodies with direct REST calls to the
-   Dataplex Universal Catalog API using an access token from
-   `google.auth.default()`.
-
-## Troubleshooting
-
-- **403/permission errors:** re-run `gcloud auth application-default login`.
-- **BigQuery location errors:** all datasets used here should be in
-  `us-central1` — same fix as the region issues hit earlier this week.
-- **Vertex AI quota errors:** if using a Vertex AI-routed tool and you
-  hit a 429, confirm the project is on a paid (not trial) billing account.
+**Live Production URL:**
+👉 https://datamosaic-app-929907480079.us-central1.run.app

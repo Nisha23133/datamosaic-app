@@ -11,13 +11,15 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 
 from api.routes import router
+from api.regulatory_routes import regulatory_router
 from tools.feedback_store import ensure_feedback_table_exists
 from tools.alias_store import ensure_alias_table_exists
 from tools.product_request_store import ensure_requests_table_exists
+from tools.regulatory_store import ensure_regulatory_tables_exist
 
-app = FastAPI(title="Data Mosaic API")
+app = FastAPI(title="RegMesh AI - Financial Regulatory Data Mesh")
 
-# Create the feedback logging, alias, and requests tables on startup if they don't exist yet
+# Create feedback, alias, requests, and regulatory tables on startup
 @app.on_event("startup")
 def startup():
     try:
@@ -32,9 +34,14 @@ def startup():
         ensure_requests_table_exists()
     except Exception as e:
         print(f"Warning: could not ensure requests table exists: {e}")
+    try:
+        ensure_regulatory_tables_exist()
+    except Exception as e:
+        print(f"Warning: could not ensure regulatory tables exist: {e}")
 
 
 app.include_router(router, prefix="/api")
+app.include_router(regulatory_router, prefix="/api")
 
 # Serve the simple frontend at the root URL
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"

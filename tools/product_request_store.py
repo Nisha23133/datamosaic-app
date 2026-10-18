@@ -177,3 +177,26 @@ def update_product_request_status(
         ]
     )
     client.query(query, job_config=job_config).result()
+
+
+def delete_product_request(request_id: str) -> bool:
+    """Delete an individual product request by its request_id."""
+    client = _get_client()
+    table_ref = f"{config.PROJECT_ID}.{config.FEEDBACK_DATASET}.{config.REQUESTS_TABLE}"
+    query = f"DELETE FROM `{table_ref}` WHERE request_id = @request_id"
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ScalarQueryParameter("request_id", "STRING", request_id)]
+    )
+    job = client.query(query, job_config=job_config)
+    job.result()
+    return True
+
+
+def clear_all_product_requests() -> bool:
+    """Delete all product requests from the log table."""
+    client = _get_client()
+    table_ref = f"{config.PROJECT_ID}.{config.FEEDBACK_DATASET}.{config.REQUESTS_TABLE}"
+    query = f"DELETE FROM `{table_ref}` WHERE 1=1"
+    job = client.query(query)
+    job.result()
+    return True

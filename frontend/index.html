@@ -2,125 +2,214 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Data Mosaic - Enterprise Semantic & Data Product Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RegMesh AI - Financial Regulatory Governance &amp; Data Product Mesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #131518;
-    --panel: #1d2025;
-    --panel-2: #25282f;
-    --panel-3: #2d313a;
-    --border: #363b44;
-    --text: #f0f2f5;
-    --text-dim: #9aa1ad;
-    --accent: #60a5fa;
-    --accent-hover: #3b82f6;
-    --green: #34d399;
-    --green-bg: rgba(52, 211, 153, 0.15);
-    --yellow: #fbbf24;
-    --yellow-bg: rgba(251, 191, 36, 0.15);
-    --red: #f87171;
-    --red-bg: rgba(248, 113, 113, 0.15);
-    --purple: #c084fc;
-    --purple-bg: rgba(192, 132, 252, 0.15);
+    --bg: #090d16;
+    --panel: #0f172a;
+    --panel-2: #1e293b;
+    --panel-3: #334155;
+    --border: #1e293b;
+    --border-light: #334155;
+    --text: #f8fafc;
+    --text-dim: #94a3b8;
+    --text-muted: #64748b;
+    --accent: #38bdf8;
+    --accent-hover: #0284c7;
+    --accent-glow: rgba(56, 189, 248, 0.2);
+    --gold: #f59e0b;
+    --gold-bg: rgba(245, 158, 11, 0.12);
+    --green: #10b981;
+    --green-bg: rgba(16, 185, 129, 0.12);
+    --red: #ef4444;
+    --red-bg: rgba(239, 68, 68, 0.12);
+    --purple: #a855f7;
+    --purple-bg: rgba(168, 85, 247, 0.12);
   }
+
   * { box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     margin: 0;
     display: flex;
     height: 100vh;
+    overflow: hidden;
   }
+
+  /* SIDEBAR */
   .sidebar {
-    width: 250px;
-    background: var(--panel);
+    width: 290px;
+    background: #0b1120;
     border-right: 1px solid var(--border);
-    padding: 20px 16px;
+    padding: 22px 18px;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
   }
-  .sidebar h1 {
-    font-size: 17px;
-    margin: 0 0 20px 0;
-    color: var(--accent);
+  .brand {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    margin-bottom: 22px;
   }
-  .nav-tabs {
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 12px;
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    box-shadow: 0 0 15px var(--accent-glow);
+  }
+  .brand-text h1 {
+    font-size: 16.5px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.3px;
+    color: #fff;
+  }
+  .brand-text span {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* PERSONA SWITCHER */
+  .persona-box {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+  .persona-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+  }
+  .persona-select {
+    width: 100%;
+    background: #0f172a;
+    border: 1px solid var(--accent);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* NAVIGATION */
+  .nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
   }
   .nav-item {
-    padding: 10px 14px;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-dim);
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
   .nav-item:hover {
     background: var(--panel-2);
     color: var(--text);
   }
   .nav-item.active {
-    background: var(--accent);
-    color: #0b1120;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent);
     font-weight: 600;
+    border-left: 3px solid var(--accent);
   }
   .badge {
+    background: var(--panel-3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
     padding: 2px 7px;
     border-radius: 10px;
-    font-size: 11px;
-    background: var(--panel-3);
-    color: var(--text);
   }
-  .nav-item.active .badge {
-    background: #0b1120;
-    color: var(--accent);
-  }
+
   .sidebar-section-title {
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-dim);
-    margin: 12px 0 8px 6px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    color: var(--text-muted);
+    margin: 12px 0 8px 0;
   }
   .sidebar-scroll {
     overflow-y: auto;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
   }
-  .domain-group { margin-top: 14px; }
-  .domain-title {
+  .regulatory-badge {
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    margin-bottom: 6px;
-    padding: 0 8px;
-    font-weight: 600;
-  }
-  .product-item {
-    padding: 8px 10px;
+    padding: 4px 8px;
     border-radius: 6px;
-    font-size: 12.5px;
-    margin-bottom: 3px;
-    border: 1px solid transparent;
-  }
-  .product-item:hover { background: var(--panel-2); border-color: var(--border); }
-  .product-item .owner {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
     color: var(--text-dim);
-    font-size: 11px;
-    margin-top: 2px;
   }
+  .regulatory-item {
+    padding: 9px 11px;
+    border-radius: 8px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .regulatory-item:hover {
+    border-color: var(--accent);
+    background: rgba(56, 189, 248, 0.08);
+    transform: translateX(3px);
+  }
+  .regulatory-item.active {
+    border-color: var(--accent);
+    background: rgba(56, 189, 248, 0.15);
+  }
+  .reg-item-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .reg-icon {
+    font-size: 14px;
+  }
+  .reg-desc {
+    font-size: 10.5px;
+    color: var(--text-dim);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  /* MAIN CONTENT AREA */
   .main {
     flex: 1;
     display: flex;
@@ -128,341 +217,681 @@
     overflow: hidden;
   }
   .topbar {
-    padding: 14px 28px;
+    height: 60px;
+    background: #0b1120;
     border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--text-dim);
-    background: var(--panel);
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 26px;
+    flex-shrink: 0;
   }
-  .owner-badge-container {
+  .topbar-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+  }
+  .regulatory-pill {
+    background: var(--gold-bg);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--gold);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .content {
     flex: 1;
     overflow-y: auto;
-    padding: 28px;
+    padding: 26px;
   }
+
+  /* CARDS & PANELS */
   .panel {
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 22px;
-    margin-bottom: 24px;
-    max-width: 960px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
   .panel h2 {
-    font-size: 14.5px;
-    margin: 0 0 14px 0;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.3px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .form-group {
-    margin-bottom: 14px;
-  }
-  .form-label {
-    display: block;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .form-hint {
-    font-size: 11.5px;
-    color: var(--text-dim);
-    margin-top: 4px;
-  }
-  input[type=text], textarea, select {
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 12px;
-    border-radius: 6px;
-    width: 100%;
-    font-size: 13px;
-    font-family: inherit;
-  }
-  input[type=text]:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-  textarea {
-    resize: vertical;
-    min-height: 70px;
-  }
-  input[type=file] {
+  .panel-subtitle {
     color: var(--text-dim);
     font-size: 13px;
+    margin-bottom: 18px;
+    line-height: 1.5;
   }
+
+  /* BUTTONS & INPUTS */
   button {
     background: var(--accent);
     color: #0b1120;
     border: none;
     padding: 9px 18px;
-    border-radius: 6px;
+    border-radius: 7px;
     font-size: 13px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
-  button:hover { background: var(--accent-hover); }
-  button.reject { background: var(--red); color: #fff; }
-  button.approve { background: var(--green); color: #0b1120; }
-  button.secondary { background: var(--panel-3); color: var(--text); }
-  button.secondary:hover { background: var(--border); }
-  .thumb-btn { opacity: 0.5; padding: 4px 10px; margin-left: 4px; }
-  .thumb-btn.active { opacity: 1; box-shadow: 0 0 0 2px rgba(255,255,255,0.3); }
+  button:hover {
+    background: var(--accent-hover);
+    color: #fff;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  button.secondary {
+    background: var(--panel-2);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+  }
+  button.secondary:hover {
+    background: var(--panel-3);
+    color: #fff;
+  }
+  button.approve {
+    background: var(--green);
+    color: #064e3b;
+  }
+  button.approve:hover {
+    background: #059669;
+    color: #fff;
+  }
+  button.reject {
+    background: var(--red);
+    color: #fff;
+  }
+  button.reject:hover {
+    background: #dc2626;
+  }
+
+  input[type=text], textarea, select {
+    background: #0b1120;
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-family: inherit;
+    width: 100%;
+  }
+  input[type=text]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+  }
+  textarea { min-height: 80px; resize: vertical; }
+
+  /* CALLOUTS */
+  .callout-compliance {
+    background: rgba(16, 185, 129, 0.08);
+    border-left: 3px solid var(--green);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #a7f3d0;
+    margin-bottom: 18px;
+  }
+  .callout-warning {
+    background: var(--gold-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #fde68a;
+    margin-bottom: 18px;
+  }
+
+  /* CHATBOT STUDIO */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #0b1120;
+    overflow: hidden;
+  }
+  .chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .chat-msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--panel-2);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: #fff;
+  }
+  .chat-msg-header {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+  .chat-input-row {
+    padding: 14px 16px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .chat-input-row textarea {
+    min-height: 70px;
+    max-height: 180px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    background: #090d16;
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    border-radius: 8px;
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chat-input-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+
+  /* EXAMPLE CLIP / TEMPLATE BANNER */
+  .clip-box {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .clip-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .clip-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* TABLES */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
     font-size: 13px;
+    margin-top: 14px;
   }
   th, td {
+    padding: 12px 14px;
     border-bottom: 1px solid var(--border);
-    padding: 10px 12px;
     text-align: left;
   }
-  th { color: var(--text-dim); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+  th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tr:hover td {
+    background: rgba(30, 41, 59, 0.3);
+  }
   .status-badge {
     padding: 4px 10px;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     display: inline-block;
   }
-  .status-PENDING { background: var(--yellow-bg); color: var(--yellow); }
+  .status-PENDING_PRODUCER_APPROVAL { background: var(--gold-bg); color: var(--gold); }
   .status-APPROVED { background: var(--green-bg); color: var(--green); }
   .status-REJECTED { background: var(--red-bg); color: var(--red); }
-  .status-alias_match, .status-candidate_match { background: var(--green-bg); color: var(--green); }
-  .status-weak_match { background: var(--yellow-bg); color: var(--yellow); }
-  .status-no_match, .status-error { background: var(--red-bg); color: var(--red); }
-  .rec-card {
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-top: 12px;
-    font-size: 13px;
+  .status-ACTIVE { background: var(--green-bg); color: var(--green); }
+
+  /* CODE & SQL BOX */
+  pre, code {
+    font-family: 'JetBrains Mono', monospace;
   }
-  .rec-card .meta { color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
   pre {
-    background: var(--panel-3);
-    border: 1px solid var(--border);
-    padding: 12px;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-size: 12px;
-    max-width: 900px;
-    color: #93c5fd;
-  }
-  .empty { color: var(--text-dim); font-size: 13px; }
-  .candidate-row {
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .candidate-row:last-child { border-bottom: none; }
-  .candidate-row .meta { color: var(--text-dim); font-size: 11px; margin: 0 6px; }
-  .candidate-row .thumb-btn { padding: 3px 8px; margin-left: 4px; }
-  .candidates-cell { min-width: 260px; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .callout-info {
-    background: rgba(96, 165, 250, 0.1);
-    border-left: 3px solid var(--accent);
-    padding: 12px 16px;
-    border-radius: 0 6px 6px 0;
+    background: #050811;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 14px;
+    color: #7dd3fc;
     font-size: 12.5px;
-    color: var(--text);
-    margin-bottom: 18px;
+    overflow-x: auto;
+    margin: 8px 0;
   }
+  code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #38bdf8;
+    font-size: 12px;
+  }
+
+  /* TAB CONTENT DISPLAY */
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* GRID HELPERS */
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
-  .request-card {
-    background: var(--panel-2);
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .metric-card {
+    background: #0b1120;
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 14px;
+    padding: 14px;
   }
-  .request-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+  .metric-title { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+  .metric-val { font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px; }
 </style>
 </head>
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-  <h1>&#9679; Data Mosaic</h1>
-  
-  <div class="nav-tabs">
-    <div class="nav-item active" onclick="switchTab('user-tab')">
-      <span>Discover &amp; Request</span>
-    </div>
-    <div class="nav-item" onclick="switchTab('admin-tab')">
-      <span>Owner Approvals</span>
-      <span class="badge" id="pendingCountBadge">0</span>
+  <div class="brand">
+    <div class="brand-icon">🏛️</div>
+    <div class="brand-text">
+      <h1>RegMesh AI</h1>
+      <span>Regulatory Data Mesh</span>
     </div>
   </div>
 
-  <div class="sidebar-section-title">Governed Data Products</div>
-  <div id="sidebarProducts" class="sidebar-scroll"><div class="empty" style="padding:12px;">Loading data products...</div></div>
+  <!-- PERSONA SWITCHER -->
+  <div class="persona-box">
+    <div class="persona-label">Active Role Persona</div>
+    <select id="personaSelector" class="persona-select" onchange="switchPersona(this.value)">
+      <option value="consumer">👤 Data Consumer (Risk &amp; Compliance)</option>
+      <option value="producer">🛠️ Data Producer (Domain Engineering)</option>
+      <option value="owner">🛡️ Platform Owner (Super Admin)</option>
+    </select>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-item active" onclick="switchNavTab('chatbot-tab')">
+      <span>💬 Regulatory Chat Studio</span>
+    </div>
+    <div class="nav-item" onclick="switchNavTab('use-cases-tab')">
+      <span>📋 Use Cases Registry</span>
+      <span class="badge" id="useCaseBadgeCount">0</span>
+    </div>
+    <div class="nav-item" onclick="switchNavTab('products-tab')">
+      <span>📦 Governed Data Products</span>
+    </div>
+    <div class="nav-item" onclick="switchNavTab('query-tab')">
+      <span>⚡ Regulatory Query Hub</span>
+    </div>
+    <div class="nav-item" id="ownerTabNavItem" style="display:none;" onclick="switchNavTab('owner-tab')">
+      <span>🛡️ Platform Owner Control</span>
+    </div>
+  </div>
+
+  <div class="sidebar-section-title" style="display:flex; justify-content:space-between; align-items:center;">
+    <span>Regulatory Frameworks</span>
+    <span style="font-size:10px; color:var(--accent); cursor:pointer;" onclick="filterByFramework('ALL')" title="Clear filter">SHOW ALL</span>
+  </div>
+  <div class="sidebar-scroll">
+    <div class="regulatory-item" onclick="selectRegulatoryFramework('BCBS 239')" title="Click to draft a BCBS 239 use case or filter registered assets">
+      <div class="reg-item-top">
+        <span class="reg-icon">🏛️</span>
+        <span class="reg-title">BCBS 239</span>
+      </div>
+      <div class="reg-desc">Risk Data Aggregation &middot; Zero Nulls</div>
+    </div>
+
+    <div class="regulatory-item" onclick="selectRegulatoryFramework('CCAR / DFAST')" title="Click to draft a CCAR use case or filter registered assets">
+      <div class="reg-item-top">
+        <span class="reg-icon">📊</span>
+        <span class="reg-title">CCAR / DFAST</span>
+      </div>
+      <div class="reg-desc">Capital Adequacy &middot; 7-Yr Retention</div>
+    </div>
+
+    <div class="regulatory-item" onclick="selectRegulatoryFramework('MiFID II')" title="Click to draft a MiFID II use case or filter registered assets">
+      <div class="reg-item-top">
+        <span class="reg-icon">📈</span>
+        <span class="reg-title">MiFID II</span>
+      </div>
+      <div class="reg-desc">Transaction Reporting &middot; Timestamps</div>
+    </div>
+
+    <div class="regulatory-item" onclick="selectRegulatoryFramework('DORA')" title="Click to draft a DORA use case or filter registered assets">
+      <div class="reg-item-top">
+        <span class="reg-icon">🛡️</span>
+        <span class="reg-title">DORA</span>
+      </div>
+      <div class="reg-desc">Operational Resilience &middot; Lineage</div>
+    </div>
+
+    <div class="regulatory-item" onclick="selectRegulatoryFramework('AML / KYC')" title="Click to draft an AML / KYC use case or filter registered assets">
+      <div class="reg-item-top">
+        <span class="reg-icon">🔍</span>
+        <span class="reg-title">AML / KYC</span>
+      </div>
+      <div class="reg-desc">Sanctions &middot; Master ID Entity Graph</div>
+    </div>
+  </div>
 </div>
 
+<!-- MAIN VIEWPORT -->
 <div class="main">
   <div class="topbar">
-    <div><strong>data-mosaic-506420</strong> &middot; Google Cloud Knowledge Catalog &amp; BigQuery</div>
-    <div class="owner-badge-container">
-      <span id="currentViewLabel" class="status-badge status-candidate_match">Public Workspace</span>
+    <div class="topbar-left">
+      <div class="regulatory-pill">
+        <span>🛡️</span> Zero Regulatory Penalties Engine &middot; BCBS 239 / CCAR Compliant
+      </div>
+      <span style="font-size:12.5px; color:var(--text-dim);">Google Cloud BigQuery &amp; Dataplex Fabric</span>
+    </div>
+    <div>
+      <span id="currentRoleBadge" class="status-badge status-APPROVED">Persona: Data Consumer</span>
     </div>
   </div>
 
   <div class="content">
 
-    <!-- TAB 1: User Discovery & Data Product Request Flow -->
-    <div id="user-tab" class="tab-content active">
+    <!-- 1. CHATBOT REGULATORY INTAKE TAB -->
+    <div id="chatbot-tab" class="tab-pane active">
 
-      <div class="panel">
-        <h2>1. Search existing data products</h2>
-        <div style="display:flex; gap:10px;">
-          <input type="text" id="searchQuery" placeholder="e.g. customer support ticket data, ecommerce orders">
-          <button id="searchBtn">Search</button>
-        </div>
-        <div id="searchResults" class="empty" style="margin-top:12px;">No search run yet.</div>
-      </div>
-
-      <div class="panel">
-        <h2>2. Upload Schema / Attributes for Semantic Analysis</h2>
-        <div class="callout-info">
-          Upload CSV, JSON, or Excel data to match against enterprise catalog glossary terms or generate AI semantic recommendations.
-        </div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <input type="file" id="fileInput" accept=".csv,.json,.xlsx">
-          <button id="uploadBtn">Analyze Schema</button>
-        </div>
-        <div id="uploadStatus" class="empty" style="margin-top:10px;"></div>
-        <div id="uploadResults"></div>
-      </div>
-
-      <!-- Data Product Request Form Panel -->
-      <div class="panel" id="createProductPanel" style="display:none;">
-        <h2>3. Submit Data Product Creation Request</h2>
-        <div class="callout-info">
-          Define attributes and business requirements. Once submitted, your request will be reviewed and approved by the <strong>Platform Owner</strong> before physical tables are provisioned in BigQuery.
-        </div>
-
-        <h3 style="font-size:13px; color:var(--text-dim); text-transform:uppercase; margin-top:18px;">Proposed Schema &amp; Attributes</h3>
-        <table id="approvedAttributesTable">
-          <tr><th>Column Name</th><th>Description</th><th></th></tr>
-        </table>
-        <button id="addAttributeBtn" class="secondary" style="margin-top:10px;">+ Add attribute</button>
-
-        <div style="margin-top:22px; border-top:1px solid var(--border); padding-top:18px;">
-          <button id="suggestProductMetaBtn" class="secondary" style="margin-bottom:14px;">Suggest Name &amp; Domain (AI)</button>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Data Product Name</label>
-              <input type="text" id="productName" placeholder="e.g. campaign_conversion_mart">
-              <div class="form-hint">Physical BigQuery table will be named after this.</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Business Domain</label>
-              <input type="text" id="productDomain" placeholder="e.g. Marketing &amp; Sales">
-              <div class="form-hint">Enterprise governance domain classification.</div>
+      <!-- Sample Regulatory Requirements & Guide Banner -->
+      <div class="clip-box">
+        <div class="clip-left">
+          <div class="clip-icon">📋</div>
+          <div>
+            <div style="font-weight:700; font-size:14px; color:#fff;">Sample Regulatory Requirements &amp; Formulation Guide</div>
+            <div style="font-size:12px; color:var(--text-dim); margin-top:3px;">
+              Load an example specification into the studio below, or click any <b>Regulatory Framework</b> in the left sidebar to prefill tailored templates for BCBS 239, CCAR, MiFID II, DORA, or AML.
             </div>
           </div>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">Requested By (Lead / Team / Email)</label>
-              <input type="text" id="requestedBy" placeholder="e.g. Alex Morgan (Marketing Analytics Lead, alex@company.com)">
-              <div class="form-hint">Contact person for data stewardship and ownership.</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Target SLA / Use Case Type</label>
-              <input type="text" id="useCaseType" placeholder="e.g. Executive Dashboards &amp; ML Modeling">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Business Justification &amp; Data Product Requirement</label>
-            <textarea id="businessJustification" placeholder="Describe the business problem this data product solves, target downstream consumers, and required grain or update frequency..."></textarea>
-            <div class="form-hint">Required for Platform Owner review and BigQuery provisioning approval.</div>
-          </div>
-
-          <div id="suggestMetaReason" class="empty" style="margin: 8px 0;"></div>
-          
-          <button id="submitRequestBtn" style="margin-top:12px; padding: 11px 22px; font-size:14px;">
-            Submit Request for Platform Approval
-          </button>
         </div>
-        <div id="createProductResult" style="margin-top:14px;"></div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="secondary" style="font-size:12px; padding:6px 12px;" onclick="loadExamplePrompt('bcbs239')">Sample: BCBS 239 Risk Mart</button>
+          <button class="secondary" style="font-size:12px; padding:6px 12px;" onclick="loadExamplePrompt('ccar')">Sample: CCAR Capital Adequacy</button>
+          <button class="secondary" style="font-size:12px; padding:6px 12px;" onclick="loadExamplePrompt('mifid')">Sample: MiFID II Trades</button>
+        </div>
       </div>
 
       <div class="panel">
-        <h2>Recent Data Product Requests</h2>
-        <p class="empty">Status of submitted creation requests awaiting Platform Owner review.</p>
-        <button id="refreshUserRequestsBtn" class="secondary" style="margin-bottom:12px;">Refresh Requests</button>
-        <table id="userRequestsTable">
-          <tr><th>Request ID</th><th>Product Name</th><th>Domain</th><th>Requested By</th><th>Status</th><th>Updated</th></tr>
-        </table>
-      </div>
+        <h2>💬 Conversational Regulatory Use Case Studio</h2>
+        <div class="panel-subtitle">
+          Chat with the Regulatory Governance AI to define your compliance requirements. The agent automatically structures and audits the 6 mandatory dimensions: <b>Description, Business Objective, Expected Outcome, Data Components (Master IDs), Compliance Rules, and Audit Trail</b>.
+        </div>
 
-      <div class="panel">
-        <h2>Learned Semantic Aliases (Global Governance)</h2>
-        <p class="empty">Approved attribute matches enrich the global semantic cache so future schemas resolve instantly.</p>
-        <button id="refreshAliasesBtn" class="secondary" style="margin-bottom:10px;">Refresh Aliases</button>
-        <table id="aliasesTable">
-          <tr><th>Raw Attribute Name</th><th>Learned Match</th><th></th></tr>
-        </table>
-      </div>
+        <div class="chat-container">
+          <div id="chatHistory" class="chat-history">
+            <div class="chat-msg bot">
+              <div class="chat-msg-header">Regulatory Intake Assistant (Gemini)</div>
+              Welcome! I am your Financial Regulatory Assistant. What regulatory reporting challenge or compliance mandate are you working on? (e.g. <em>"We need a BCBS 239 counterparty risk mart linking customer Master ID to total derivatives exposure to avoid audit fines."</em>)
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <div class="chat-input-wrapper">
+              <textarea id="chatInput" rows="3" placeholder="Describe your regulatory requirement, e.g. CCAR stress testing or Master ID aggregation..." onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendChatMessage(); }"></textarea>
+              <button id="sendChatBtn" style="padding:12px 22px; height:60px;" onclick="sendChatMessage()">Send &amp; Analyze</button>
+            </div>
+            <div class="chat-input-actions">
+              <span>💡 Tip: Press <kbd style="background:var(--panel-2); padding:2px 5px; border-radius:3px;">Enter</kbd> to submit, <kbd style="background:var(--panel-2); padding:2px 5px; border-radius:3px;">Shift+Enter</kbd> for a new line.</span>
+              <span id="charCountLabel"></span>
+            </div>
+          </div>
+        </div>
 
+        <!-- Generated Use Case Confirmation Box (Shown when AI extracts complete use case) -->
+        <div id="useCaseConfirmationCard" style="display:none; margin-top:20px;"></div>
+      </div>
     </div>
 
-    <!-- TAB 2: Platform Owner Review & Approvals Portal -->
-    <div id="admin-tab" class="tab-content">
+    <!-- 2. USE CASES REGISTRY TAB -->
+    <div id="use-cases-tab" class="tab-pane">
       <div class="panel">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <h2 style="margin:0;">Platform Owner &middot; Data Product Review &amp; Provisioning Portal</h2>
-          <div id="ownerAuthStatus"></div>
-        </div>
-        <div class="callout-info">
-          As the <strong>Platform Owner</strong>, you review submitted requirements, inspect the proposed schema, and authorize physical BigQuery table provisioning into the curated dataset.
+          <div>
+            <h2 style="margin:0;">📋 Enterprise Regulatory Use Cases Registry</h2>
+            <div class="panel-subtitle" style="margin:4px 0 0 0;">
+              Central repository of financial compliance pipelines. Data Producers review and approve to build automated semantic layers.
+            </div>
+          </div>
+          <button class="secondary" onclick="loadUseCases()">Refresh Registry</button>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-          <div style="display:flex; gap:10px; align-items:center;">
-            <label class="form-label" style="margin:0;">Filter:</label>
-            <select id="adminStatusFilter" style="width:160px;" onchange="loadAdminRequests()">
-              <option value="">All Statuses</option>
-              <option value="PENDING" selected>Pending Approval</option>
-              <option value="APPROVED">Approved</option>
-              <option value="REJECTED">Rejected</option>
+        <table id="useCasesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Use Case Title</th>
+              <th>Framework</th>
+              <th>Business Objective &amp; Fine Mitigation</th>
+              <th>Status</th>
+              <th>Producer Action</th>
+            </tr>
+          </thead>
+          <tbody id="useCasesTableBody">
+            <tr><td colspan="6" class="empty">Loading regulatory use cases...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Semantic Layer Preview Modal / Card -->
+      <div id="semanticLayerPreviewPanel" class="panel" style="display:none;">
+        <h2>📐 Automated Semantic Layer Contract (Dataform / dbt)</h2>
+        <div class="panel-subtitle">
+          Generated automatically upon Data Producer approval. Contains standardized dimensions, Master ID relationships, measures, and certified SQLX.
+        </div>
+        <div id="semanticLayerContent"></div>
+      </div>
+    </div>
+
+    <!-- 3. GOVERNED DATA PRODUCTS TAB -->
+    <div id="products-tab" class="tab-pane">
+      <!-- Producer Product Studio (Only for Data Producer or Owner) -->
+      <div id="producerStudioPanel" class="panel" style="border-left: 4px solid var(--accent);">
+        <h2>🛠️ Data Producer &middot; Publish Governed Financial Data Product</h2>
+        <div class="panel-subtitle">
+          Materialize physical BigQuery tables in the <code>curated</code> dataset directly from <b>Approved Regulatory Use Cases</b>. Lineage, schema attributes, and compliance certifications are carried over automatically.
+        </div>
+
+        <div style="background: rgba(56, 189, 248, 0.05); border: 1px dashed var(--accent); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+          <label style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase;">1. Select Approved Regulatory Use Case</label>
+          <div style="display:flex; gap:10px; margin-top:6px;">
+            <select id="dpApprovedUseCaseSelect" onchange="onSelectApprovedUseCase(this.value)" style="flex:1;">
+              <option value="">-- Choose an Approved Use Case to Materialize --</option>
+            </select>
+            <button class="secondary" style="font-size:11.5px; padding:6px 12px;" onclick="populateApprovedUseCasesDropdown()">↻ Refresh Use Cases</button>
+          </div>
+          <div id="useCaseContractSummary" style="margin-top:10px; font-size:12px; color:var(--text-dim); display:none;"></div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Data Product Name (BigQuery Table)</label>
+            <input type="text" id="dpName" placeholder="e.g. counterparty_exposure_bcbs239_mart">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Governance Domain</label>
+            <select id="dpDomain">
+              <option value="Credit Risk">Credit Risk</option>
+              <option value="Market Risk">Market Risk</option>
+              <option value="Counterparty &amp; Exposure">Counterparty &amp; Exposure</option>
+              <option value="Customer Master &amp; KYC">Customer Master &amp; KYC</option>
+              <option value="Regulatory Reporting">Regulatory Reporting</option>
             </select>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button id="refreshAdminRequestsBtn" class="secondary" onclick="loadAdminRequests(true)">Refresh</button>
-            <button id="changeOwnerPasswordBtn" class="secondary" onclick="resetOwnerPassword()">Re-enter Password</button>
+        </div>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Regulatory Framework</label>
+            <select id="dpFramework">
+              <option value="BCBS 239 (Risk Data Aggregation &amp; Reporting)">BCBS 239</option>
+              <option value="CCAR / DFAST (Capital Adequacy &amp; Stress Testing)">CCAR / DFAST</option>
+              <option value="MiFID II / MiFIR (Transaction Reporting &amp; Trade Transparency)">MiFID II</option>
+              <option value="Dodd-Frank (Swap Data &amp; Systemic Risk Reporting)">Dodd-Frank</option>
+              <option value="AML / KYC (Anti-Money Laundering &amp; Sanctions)">AML / KYC</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Mandatory Master ID Column</label>
+            <input type="text" id="dpMasterId" value="master_id" placeholder="master_id">
           </div>
         </div>
 
-        <div id="adminRequestsList">
-          <div class="empty">Loading pending requests...</div>
+        <div style="margin-top:12px;">
+          <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Business Justification &amp; Data Product Scope</label>
+          <textarea id="dpDescription" placeholder="Certified data product linking customer accounts to global master entities for regulatory compliance."></textarea>
+        </div>
+
+        <div style="margin-top:12px;" id="dpAttributesPreviewBox"></div>
+
+        <button style="margin-top:14px;" id="publishDataProductBtn" onclick="publishDataProductFromProducer()">🚀 Materialize &amp; Provision BigQuery Table</button>
+      </div>
+
+      <!-- Published Data Products List -->
+      <div class="panel">
+        <h2>📦 Certified Financial Data Products (BigQuery Curated Layer)</h2>
+        <div class="panel-subtitle">Available for Self-Serve Regulatory Querying with full lineage and audit certificates.</div>
+        <table id="productsTable">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Domain</th>
+              <th>Framework</th>
+              <th>Master ID Spec</th>
+              <th>Compliance Certification</th>
+              <th>Physical BigQuery Table</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody">
+            <tr><td colspan="7" class="empty">Loading data products...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. REGULATORY QUERY HUB TAB -->
+    <div id="query-tab" class="tab-pane">
+      <div class="panel">
+        <h2>⚡ Self-Serve Regulatory Query Hub</h2>
+        <div class="panel-subtitle">
+          Ask questions in plain English (e.g. <em>"Show every customer carrying Master ID with credit limit greater than 100000"</em>). The engine generates certified BigQuery SQL ensuring Master ID compliance and logs an immutable audit trail for regulators.
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="naturalQueryInput" placeholder="e.g. Find all customers with high risk score carrying a Master ID and their aggregate exposure" onkeydown="if(event.key==='Enter') executeRegulatoryQuery()">
+          <button id="runQueryBtn" onclick="executeRegulatoryQuery()">⚡ Generate SQL &amp; Query</button>
+        </div>
+
+        <div id="queryStatus" style="margin-top:10px;" class="empty"></div>
+
+        <div id="queryResultsBox" style="display:none; margin-top:18px;">
+          <div class="metric-card" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <span class="metric-title">Compliance Audit Digest:</span>
+                <span id="auditDigestHash" style="color:var(--gold); font-family:monospace; margin-left:8px; font-weight:700;">AUD-BCBS239-VERIFIED</span>
+              </div>
+              <span id="queryExecutionTime" class="meta" style="font-size:12px;">0.0s</span>
+            </div>
+            <div id="queryExplanation" style="font-size:13px; color:var(--text); margin-top:8px;"></div>
+          </div>
+
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Generated BigQuery SQL:</div>
+          <pre id="generatedSqlDisplay"></pre>
+
+          <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin:14px 0 6px 0;">BigQuery Curated Result Data:</div>
+          <div style="overflow-x:auto;">
+            <table id="liveQueryTable">
+              <thead id="liveQueryTableHead"></thead>
+              <tbody id="liveQueryTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PLATFORM OWNER CONTROL DECK -->
+    <div id="owner-tab" class="tab-pane">
+      <div class="panel" style="border-left: 4px solid var(--purple);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h2 style="margin:0;">🛡️ Platform Owner Super-Admin Control Deck</h2>
+          <div id="ownerAuthStatus"></div>
+        </div>
+        <div class="callout-compliance">
+          Platform Owner authority allows administrative decommissioning, compliance audits, and deletion of orphaned or non-compliant use cases and data products based on enterprise role-based access control (RBAC).
+        </div>
+
+        <div class="grid-2">
+          <div class="panel" style="background:var(--panel-2);">
+            <h3 style="margin-top:0; font-size:15px;">Use Cases Administrative Management</h3>
+            <p style="font-size:12px; color:var(--text-dim);">Platform Owner can permanently remove use cases that failed audit inspection.</p>
+            <div id="ownerUseCasesList">Loading use cases...</div>
+          </div>
+
+          <div class="panel" style="background:var(--panel-2);">
+            <h3 style="margin-top:0; font-size:15px;">Governed Data Products Decommissioning</h3>
+            <p style="font-size:12px; color:var(--text-dim);">Decommission data products no longer meeting regulatory retention policies.</p>
+            <div id="ownerProductsList">Loading products...</div>
+          </div>
         </div>
       </div>
     </div>
@@ -471,318 +900,865 @@
 </div>
 
 <script>
-let lastUploadResults = [];
-let lastRecommendations = {};
-let approvedAttributes = [];
-let platformOwnerPassword = sessionStorage.getItem("platform_owner_password") || "";
+let currentPersona = 'consumer';
+let chatHistory = [];
+let pendingExtractedUseCase = null;
 
-// Open API fetch: No global API key required for public actions
-async function apiFetch(url, options = {}) {
-  const headers = { ...(options.headers || {}) };
-  return fetch(url, { ...options, headers });
+// PERSONA SWITCHING
+function switchPersona(persona) {
+  currentPersona = persona;
+  const roleBadge = document.getElementById('currentRoleBadge');
+  const ownerNav = document.getElementById('ownerTabNavItem');
+  const producerStudio = document.getElementById('producerStudioPanel');
+
+  if (persona === 'consumer') {
+    roleBadge.textContent = 'Persona: Data Consumer (Risk & Compliance)';
+    roleBadge.className = 'status-badge status-APPROVED';
+    ownerNav.style.display = 'none';
+    if (producerStudio) producerStudio.style.display = 'none';
+  } else if (persona === 'producer') {
+    roleBadge.textContent = 'Persona: Data Producer (Domain Engineering)';
+    roleBadge.className = 'status-badge status-PENDING_PRODUCER_APPROVAL';
+    ownerNav.style.display = 'none';
+    if (producerStudio) producerStudio.style.display = 'block';
+  } else if (persona === 'owner') {
+    roleBadge.textContent = 'Persona: Platform Owner (Super Admin)';
+    roleBadge.className = 'status-badge status-REJECTED';
+    ownerNav.style.display = 'flex';
+    if (producerStudio) producerStudio.style.display = 'block';
+  }
+
+  // If the user is currently viewing the Use Cases tab, refresh the table so permissions reflect immediately
+  const activeTab = document.querySelector('.tab-pane.active');
+  if (activeTab && activeTab.id === 'use-cases-tab') {
+    loadUseCases();
+  }
 }
 
-// Authenticated API fetch for Platform Owner actions (requires password)
-async function adminFetch(url, options = {}) {
-  if (!platformOwnerPassword) {
-    const input = window.prompt("Enter Platform Owner Password to access:");
-    if (!input) throw new Error("Platform Owner password required.");
-    platformOwnerPassword = input.trim();
-    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
-  }
-  const headers = {
-    ...(options.headers || {}),
-    'X-Platform-Owner-Password': platformOwnerPassword
-  };
-  const res = await fetch(url, { ...options, headers });
-  if (res.status === 401) {
-    sessionStorage.removeItem("platform_owner_password");
-    platformOwnerPassword = "";
-    const retryInput = window.prompt("Incorrect Platform Owner password. Try again:");
-    if (!retryInput) throw new Error("Unauthorized: Incorrect password.");
-    platformOwnerPassword = retryInput.trim();
-    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
-    return adminFetch(url, options);
-  }
-  return res;
-}
-
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+// NAVIGATION TAB SWITCHING
+function switchNavTab(tabId) {
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
 
-  const viewBadge = document.getElementById('currentViewLabel');
-  if (tabId === 'admin-tab') {
-    document.querySelectorAll('.nav-item')[1].classList.add('active');
-    viewBadge.textContent = 'Platform Owner Mode';
-    viewBadge.className = 'status-badge status-weak_match';
-    updateOwnerAuthUI();
-    loadAdminRequests(true);  // force-refresh from server on tab switch
+  // Highlight active nav item
+  const navItem = document.querySelector(`.nav-item[onclick*="${tabId}"]`);
+  if (navItem) {
+    navItem.classList.add('active');
+  }
+
+  const target = document.getElementById(tabId);
+  if (target) {
+    target.classList.add('active');
+  }
+
+  if (tabId === 'use-cases-tab') loadUseCases();
+  if (tabId === 'products-tab') {
+    loadDataProducts();
+    populateApprovedUseCasesDropdown();
+  }
+  if (tabId === 'owner-tab') loadOwnerDeck();
+}
+
+let activeFrameworkFilter = 'ALL';
+
+// FRAMEWORK SELECTION & INTERACTION
+function selectRegulatoryFramework(fwKey) {
+  // Highlight active item in sidebar
+  document.querySelectorAll('.regulatory-item').forEach(el => {
+    if (el.textContent.includes(fwKey)) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+
+  const activeTab = document.querySelector('.tab-pane.active');
+  const activeTabId = activeTab ? activeTab.id : 'chatbot-tab';
+
+  // If in Chatbot tab: load specialized template
+  if (activeTabId === 'chatbot-tab') {
+    const input = document.getElementById('chatInput');
+    const prompts = {
+      'BCBS 239': "We need a BCBS 239 Risk Data Aggregation pipeline linking all counterparty accounts with our Master ID (master_id) to calculate gross and net exposure in USD with zero null tolerance to avoid supervisory capital add-ons.",
+      'CCAR / DFAST': "Create a CCAR capital adequacy use case tracking customer risk-weighted assets, credit limits, and historical defaults with 7-year audit retention and stress loss scenarios.",
+      'MiFID II': "Implement a MiFID II transaction reporting data product capturing execution venue, timestamp down to microsecond precision, counterparty LEI, and traded instrument ISIN to ensure market transparency compliance.",
+      'DORA': "Configure a DORA operational resilience data product cataloging critical financial IT assets, failover metrics, incident recovery logs, and vendor dependencies.",
+      'AML / KYC': "Design an AML / KYC compliance use case establishing an entity graph linking customer Master IDs to sanctions lists, watchlists, high-risk jurisdictions, and PEP flags."
+    };
+    input.value = prompts[fwKey] || `We need a regulatory reporting data product for ${fwKey} with canonical Master ID resolution and audit trails.`;
+    input.focus();
+    input.scrollIntoView({ behavior: 'smooth' });
   } else {
-    document.querySelectorAll('.nav-item')[0].classList.add('active');
-    viewBadge.textContent = 'Public Workspace';
-    viewBadge.className = 'status-badge status-candidate_match';
-    loadUserRequests();
+    // If in Use Cases or Data Products tab: filter by this framework
+    filterByFramework(fwKey);
   }
 }
 
-document.getElementById('searchBtn').addEventListener('click', doSearch);
-document.getElementById('uploadBtn').addEventListener('click', doUpload);
-document.getElementById('submitRequestBtn').addEventListener('click', submitDataProductRequest);
-document.getElementById('refreshAliasesBtn').addEventListener('click', loadAliases);
-document.getElementById('refreshUserRequestsBtn').addEventListener('click', loadUserRequests);
-
-// Initial loads
-loadAliases();
-loadSidebarProducts();
-loadUserRequests();
-
-async function loadAliases() {
-  const table = document.getElementById('aliasesTable');
-  try {
-    const res = await apiFetch('/api/aliases');
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-    const data = await res.json();
-
-    table.innerHTML = '<tr><th>Raw Attribute Name</th><th>Learned Match</th><th></th></tr>';
-    if (!data.aliases || data.aliases.length === 0) {
-      const row = document.createElement('tr');
-      row.innerHTML = '<td colspan="3" class="empty">No aliases learned yet.</td>';
-      table.appendChild(row);
-      return;
-    }
-
-    data.aliases.forEach(a => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${escapeHtml(a.raw_name)}</td>
-        <td>${escapeHtml(a.canonical_term)}</td>
-        <td><button class="reject revoke-alias-btn" data-raw-name="${escapeHtml(a.raw_name)}" style="padding:4px 10px; font-size:11px;">Revoke</button></td>
-      `;
-      table.appendChild(row);
-    });
-
-    table.querySelectorAll('.revoke-alias-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        await apiFetch(`/api/aliases/${encodeURIComponent(btn.dataset.rawName)}`, { method: 'DELETE' });
-        loadAliases();
-      });
-    });
-  } catch (err) {
-    table.innerHTML = `<tr><td colspan="3" style="color:#e06666;">Error loading aliases: ${escapeHtml(err.message)}</td></tr>`;
+function filterByFramework(fwKey) {
+  activeFrameworkFilter = fwKey;
+  if (fwKey === 'ALL') {
+    document.querySelectorAll('.regulatory-item').forEach(el => el.classList.remove('active'));
+  }
+  const activeTab = document.querySelector('.tab-pane.active');
+  if (activeTab && activeTab.id === 'use-cases-tab') {
+    loadUseCases();
+  } else if (activeTab && activeTab.id === 'products-tab') {
+    loadDataProducts();
+  } else {
+    switchNavTab('use-cases-tab');
   }
 }
 
-async function loadSidebarProducts() {
-  const el = document.getElementById('sidebarProducts');
-  try {
-    const res = await apiFetch('/api/data-products');
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-    const data = await res.json();
-
-    if (!data.results || data.results.length === 0) {
-      el.innerHTML = '<div class="empty" style="padding:12px;">No data products yet.</div>';
-      return;
-    }
-
-    const byDomain = {};
-    data.results.forEach(p => {
-      const domain = p.domain || 'Unassigned';
-      if (!byDomain[domain]) byDomain[domain] = [];
-      byDomain[domain].push(p);
-    });
-
-    el.innerHTML = Object.keys(byDomain).sort().map(domain => `
-      <div class="domain-group">
-        <div class="domain-title">${escapeHtml(domain)}</div>
-        ${byDomain[domain].map(p => `
-          <div class="product-item">
-            <div style="font-weight:600;">${escapeHtml(p.name)}</div>
-            <div class="owner">${escapeHtml(p.owner || 'No owner assigned')}</div>
-          </div>
-        `).join('')}
-      </div>
-    `).join('');
-  } catch (err) {
-    el.innerHTML = `<div class="empty" style="padding:12px; color:#e06666;">Error loading products</div>`;
+// EXAMPLE PROMPTS
+function loadExamplePrompt(type) {
+  const input = document.getElementById('chatInput');
+  if (type === 'bcbs239') {
+    input.value = "We need a BCBS 239 Risk Aggregation data product linking all counterparty accounts with our Master ID (master_id) to calculate gross and net exposure in USD with zero null tolerance to avoid supervisory capital add-ons.";
+  } else if (type === 'ccar') {
+    input.value = "Create a CCAR capital adequacy use case tracking customer risk-weighted assets, credit limits, and historical defaults with 7-year audit retention and stress loss scenarios.";
+  } else if (type === 'mifid') {
+    input.value = "Implement a MiFID II transaction reporting data product capturing execution venue, timestamp down to microsecond precision, counterparty LEI, and traded instrument ISIN to ensure market transparency compliance.";
   }
+  input.focus();
+  input.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-async function doSearch() {
-  const query = document.getElementById('searchQuery').value;
-  const el = document.getElementById('searchResults');
-  el.textContent = 'Searching...';
+// CHATBOT INTAKE
+async function sendChatMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const historyEl = document.getElementById('chatHistory');
+  const userMsg = document.createElement('div');
+  userMsg.className = 'chat-msg user';
+  userMsg.innerHTML = `<div class="chat-msg-header" style="color:#fff;">You</div>${escapeHtml(text)}`;
+  historyEl.appendChild(userMsg);
+  input.value = '';
+
+  chatHistory.push({ sender: 'user', text: text });
+  historyEl.scrollTop = historyEl.scrollHeight;
+
+  // Bot loading placeholder
+  const botLoading = document.createElement('div');
+  botLoading.className = 'chat-msg bot';
+  botLoading.innerHTML = `<div class="chat-msg-header">Regulatory Intake Assistant</div><em>Evaluating regulatory compliance dimensions with Gemini...</em>`;
+  historyEl.appendChild(botLoading);
+  historyEl.scrollTop = historyEl.scrollHeight;
+
   try {
-    const res = await apiFetch('/api/search', {
+    const res = await fetch('/api/regulatory/chat-intake', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query})
+      body: JSON.stringify({ message: text, chat_history: chatHistory, persona: currentPersona })
     });
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
+    botLoading.remove();
 
-    if (!data.results || data.results.length === 0) {
-      el.innerHTML = '<span class="empty">No data products found.</span>';
-      return;
+    const botMsg = document.createElement('div');
+    botMsg.className = 'chat-msg bot';
+    botMsg.innerHTML = `<div class="chat-msg-header">Regulatory Intake Assistant</div>${escapeHtml(data.reply)}`;
+    historyEl.appendChild(botMsg);
+    chatHistory.push({ sender: 'assistant', text: data.reply });
+
+    if (data.is_complete && data.use_case) {
+      pendingExtractedUseCase = data.use_case;
+      renderUseCaseConfirmationCard(data.use_case);
     }
-
-    el.innerHTML = data.results.map(p => `
-      <div class="rec-card" style="margin-bottom:10px;">
-        <b>${escapeHtml(p.name)}</b>
-        ${p.description ? `<div class="meta" style="margin-top:4px;">${escapeHtml(p.description)}</div>` : ''}
-        ${p.fields && p.fields.length ? `
-          <div style="margin-top:8px;">
-            ${p.fields.map(f => `<span class="status-badge status-candidate_match" style="margin:2px;">${escapeHtml(f.name)}</span>`).join('')}
-          </div>
-        ` : '<div class="meta" style="margin-top:6px;">No field info available.</div>'}
-      </div>
-    `).join('');
   } catch (err) {
-    el.innerHTML = `<span style="color:#e06666;">Error: ${escapeHtml(err.message)}</span>`;
+    botLoading.innerHTML = `<span style="color:var(--red);">Error in regulatory intake: ${escapeHtml(err.message)}</span>`;
   }
+  historyEl.scrollTop = historyEl.scrollHeight;
 }
 
-async function doUpload() {
-  const fileInput = document.getElementById('fileInput');
-  const statusEl = document.getElementById('uploadStatus');
-  const resultsEl = document.getElementById('uploadResults');
+function renderUseCaseConfirmationCard(uc) {
+  const container = document.getElementById('useCaseConfirmationCard');
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div class="panel" style="border: 2px solid var(--accent); background: #0b1120;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="margin:0; color:var(--accent);">✓ Standardized Regulatory Use Case Ready for Submission</h3>
+        <span class="status-badge status-APPROVED">${escapeHtml(uc.regulatory_framework)}</span>
+      </div>
+      <div class="grid-2" style="margin-top:14px;">
+        <div><strong>Title:</strong> ${escapeHtml(uc.title)}</div>
+        <div><strong>Retention Policy:</strong> ${escapeHtml(uc.retention_policy)}</div>
+      </div>
+      <div style="margin-top:8px;">
+        <strong>Business Objective (Fine Prevention):</strong> ${escapeHtml(uc.business_objective)}
+      </div>
+      <div style="margin-top:8px;">
+        <strong>Data Quality Rules:</strong> ${escapeHtml(uc.quality_rules)}
+      </div>
+      <div style="margin-top:8px;">
+        <strong>Mandatory Components (Master IDs):</strong>
+        <div style="margin-top:4px;">
+          ${(uc.data_components || []).map(c => `<span class="regulatory-badge" style="margin:2px;">${escapeHtml(c)}</span>`).join('')}
+        </div>
+      </div>
+      <div style="margin-top:16px; display:flex; gap:10px;">
+        <button class="approve" onclick="confirmAndRegisterUseCase()">Confirm &amp; Register Regulatory Use Case</button>
+        <button class="secondary" onclick="document.getElementById('useCaseConfirmationCard').style.display='none'">Refine Further</button>
+      </div>
+    </div>
+  `;
+  container.scrollIntoView({ behavior: 'smooth' });
+}
 
-  if (!fileInput.files.length) {
-    statusEl.textContent = 'Choose a file first.';
+async function confirmAndRegisterUseCase() {
+  if (!pendingExtractedUseCase) {
+    alert('No regulatory use case extracted yet. Please chat with the assistant first.');
     return;
   }
 
-  statusEl.textContent = 'Uploading and running semantic analysis...';
-  resultsEl.innerHTML = '';
-
-  const formData = new FormData();
-  formData.append('file', fileInput.files[0]);
+  const confirmBtn = document.querySelector('#useCaseConfirmationCard button.approve');
+  if (confirmBtn) {
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'Registering in BigQuery...';
+  }
 
   try {
-    const res = await apiFetch('/api/upload', { method: 'POST', body: formData });
+    const res = await fetch('/api/regulatory/use-cases/create', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(pendingExtractedUseCase)
+    });
     if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(`Server returned ${res.status}: ${errText}`);
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.detail || `Server returned HTTP ${res.status}`);
     }
     const data = await res.json();
-    lastUploadResults = data.results;
-    statusEl.textContent = `Found ${data.attribute_count} attributes in ${data.file_name}. Match or suggest metadata below:`;
-    renderResultsTable(data.results);
+    alert(`Success! Regulatory Use Case [${data.use_case_id}] registered in BigQuery.`);
+    document.getElementById('useCaseConfirmationCard').style.display = 'none';
+    switchNavTab('use-cases-tab');
   } catch (err) {
-    statusEl.textContent = 'Upload failed: ' + err.message;
+    if (confirmBtn) {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = 'Confirm & Register Regulatory Use Case';
+    }
+    alert('Failed to register use case: ' + err.message);
+  }
+}
+
+// USE CASES LISTING & APPROVAL
+async function loadUseCases() {
+  const tbody = document.getElementById('useCasesTableBody');
+  try {
+    const res = await fetch('/api/regulatory/use-cases');
+    const data = await res.json();
+    let list = data.use_cases || [];
+    if (activeFrameworkFilter !== 'ALL') {
+      list = list.filter(uc => (uc.regulatory_framework || '').toLowerCase().includes(activeFrameworkFilter.toLowerCase()));
+    }
+
+    document.getElementById('useCaseBadgeCount').textContent = list.length;
+    if (list.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">No regulatory use cases registered yet. Create one via Chatbot Studio!</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map(uc => {
+      let actionHtml = '';
+      if (uc.status === 'PENDING_PRODUCER_APPROVAL') {
+        if (currentPersona === 'producer') {
+          actionHtml = `
+            <button class="approve" style="padding:4px 10px; font-size:11px;" onclick="producerOpenEditSemanticLayer('${uc.use_case_id}')">
+              ✏️ Edit &amp; Approve Semantic Layer
+            </button>
+          `;
+        } else {
+          actionHtml = `<span class="meta" style="font-size:11.5px; color:var(--text-muted);">Awaiting Data Producer Review</span>`;
+        }
+      } else {
+        actionHtml = `
+          <div style="display:flex; gap:6px;">
+            <button class="secondary" style="padding:4px 8px; font-size:11px;" onclick="viewSemanticLayer('${uc.use_case_id}')">
+              View Contract
+            </button>
+            ${currentPersona === 'producer' ? `
+              <button class="approve" style="padding:4px 8px; font-size:11px; background:#10b981; color:#0b1120;" onclick="materializeProductFromUseCase('${uc.use_case_id}')" title="Materialize physical BigQuery table">
+                🚀 Materialize
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <tr>
+          <td><code>${escapeHtml(uc.use_case_id)}</code></td>
+          <td><b>${escapeHtml(uc.title)}</b></td>
+          <td><span class="regulatory-badge">${escapeHtml(uc.regulatory_framework)}</span></td>
+          <td><span style="font-size:12px; color:var(--text-dim);">${escapeHtml(uc.business_objective || 'N/A')}</span></td>
+          <td><span class="status-badge status-${uc.status}">${escapeHtml(uc.status)}</span></td>
+          <td>${actionHtml}</td>
+        </tr>
+      `;
+    }).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="6" style="color:var(--red);">Error loading use cases: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+let activeEditUseCaseId = null;
+let currentDraftSemanticLayer = null;
+
+async function producerOpenEditSemanticLayer(id) {
+  if (currentPersona !== 'producer') {
+    alert('Access Denied: Only the Data Producer persona has authority to edit and approve semantic layer models.');
+    return;
+  }
+
+  activeEditUseCaseId = id;
+  const panel = document.getElementById('semanticLayerPreviewPanel');
+  const content = document.getElementById('semanticLayerContent');
+  panel.style.display = 'block';
+  content.innerHTML = '<div class="empty">Synthesizing draft semantic layer contract for review...</div>';
+  panel.scrollIntoView({ behavior: 'smooth' });
+
+  try {
+    const res = await fetch(`/api/regulatory/use-cases/${id}/semantic-preview`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    currentDraftSemanticLayer = data.semantic_layer;
+    renderEditableSemanticLayer(data.semantic_layer, data.use_case);
+  } catch (err) {
+    content.innerHTML = `<span style="color:var(--red);">Failed to preview semantic layer: ${escapeHtml(err.message)}</span>`;
+  }
+}
+
+function renderEditableSemanticLayer(sem, uc) {
+  const content = document.getElementById('semanticLayerContent');
+  const dims = sem.dimensions || [];
+  const metrics = sem.metrics || [];
+
+  content.innerHTML = `
+    <div style="background:#0b1120; border:1px solid var(--accent); border-radius:8px; padding:18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:15px; font-weight:700; color:var(--accent);">🛠️ Data Producer &middot; Semantic Contract Studio (Edit Mode)</span>
+          <span class="status-badge status-PENDING_PRODUCER_APPROVAL" style="margin-left:8px;">DRAFT FOR APPROVAL</span>
+        </div>
+        <button class="secondary" style="font-size:11px;" onclick="document.getElementById('semanticLayerPreviewPanel').style.display='none'">✕ Close</button>
+      </div>
+
+      <div style="margin-top:14px;" class="grid-2">
+        <div>
+          <label style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Semantic Model / Mart Name</label>
+          <input type="text" id="editModelName" value="${escapeHtml(sem.model_name || 'regulatory_semantic_mart')}">
+        </div>
+        <div>
+          <label style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Regulatory Compliance Certification</label>
+          <input type="text" id="editCert" value="${escapeHtml(sem.regulatory_certification || 'CERTIFIED_BCBS239_READY')}">
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px;">
+        <div>
+          <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Standardized Dimensions (Editable JSON):</strong>
+          <textarea id="editDimensionsJson" style="font-family:'JetBrains Mono', monospace; font-size:12px; height:130px; margin-top:4px;">${escapeHtml(JSON.stringify(dims, null, 2))}</textarea>
+        </div>
+        <div>
+          <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Calculated Risk Measures &amp; Aggregations (JSON):</strong>
+          <textarea id="editMetricsJson" style="font-family:'JetBrains Mono', monospace; font-size:12px; height:130px; margin-top:4px;">${escapeHtml(JSON.stringify(metrics, null, 2))}</textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Dataform / dbt Transformation Logic (SQLX):</strong>
+        <textarea id="editDataformSqlx" style="font-family:'JetBrains Mono', monospace; font-size:12px; height:110px; margin-top:4px;">${escapeHtml(sem.dataform_sqlx || '')}</textarea>
+      </div>
+
+      <div style="margin-top:18px; display:flex; justify-content:flex-end; gap:10px;">
+        <button class="secondary" onclick="document.getElementById('semanticLayerPreviewPanel').style.display='none'">Cancel</button>
+        <button class="approve" style="padding:8px 18px;" onclick="producerCommitSemanticApproval()">
+          ✓ Approve &amp; Register Semantic Layer Contract
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+async function producerCommitSemanticApproval() {
+  if (currentPersona !== 'producer') {
+    alert('Access Denied: Only Data Producer persona can approve.');
+    return;
+  }
+
+  const modelName = document.getElementById('editModelName').value.trim();
+  const cert = document.getElementById('editCert').value.trim();
+  const sqlx = document.getElementById('editDataformSqlx').value.trim();
+
+  let dims = [];
+  let metrics = [];
+  try {
+    dims = JSON.parse(document.getElementById('editDimensionsJson').value);
+    metrics = JSON.parse(document.getElementById('editMetricsJson').value);
+  } catch (err) {
+    alert('Invalid JSON in dimensions or metrics: ' + err.message);
+    return;
+  }
+
+  const updatedSemanticLayer = {
+    model_name: modelName,
+    regulatory_certification: cert,
+    dimensions: dims,
+    metrics: metrics,
+    dataform_sqlx: sqlx,
+    approved_by_role: 'Data Producer'
+  };
+
+  try {
+    const res = await fetch(`/api/regulatory/use-cases/${activeEditUseCaseId}/approve`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        producer_name: 'Risk Domain Producer Team',
+        persona: 'Data Producer',
+        semantic_layer: updatedSemanticLayer
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    alert(`Use Case [${activeEditUseCaseId}] successfully approved with curated semantic contract!`);
+    document.getElementById('semanticLayerPreviewPanel').style.display = 'none';
+    loadUseCases();
+  } catch (err) {
+    alert('Approval failed: ' + err.message);
+  }
+}
+
+async function viewSemanticLayer(id) {
+  try {
+    const res = await fetch(`/api/regulatory/use-cases/${id}`);
+    const uc = await res.json();
+    if (uc.semantic_layer && uc.semantic_layer.model_name) {
+      renderReadOnlySemanticLayer(uc.semantic_layer, uc);
+    } else {
+      alert('Semantic layer is being generated or was not attached.');
+    }
+  } catch (err) {
+    alert('Failed to load semantic layer: ' + err.message);
+  }
+}
+
+function renderReadOnlySemanticLayer(sem, uc) {
+  const panel = document.getElementById('semanticLayerPreviewPanel');
+  const content = document.getElementById('semanticLayerContent');
+  panel.style.display = 'block';
+
+  content.innerHTML = `
+    <div style="background:#0b1120; border:1px solid var(--border-light); border-radius:8px; padding:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:16px; font-weight:700; color:var(--accent);">${escapeHtml(sem.model_name || 'regulatory_semantic_mart')}</span>
+          <span class="status-badge status-APPROVED" style="margin-left:8px;">${escapeHtml(sem.regulatory_certification || 'CERTIFIED')}</span>
+        </div>
+        <button class="secondary" style="font-size:11px;" onclick="document.getElementById('semanticLayerPreviewPanel').style.display='none'">Close</button>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div>
+          <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Standardized Dimensions:</strong>
+          <ul style="margin:6px 0 0 16px; font-size:12.5px; line-height:1.6;">
+            ${(sem.dimensions || []).map(d => `<li><code>${escapeHtml(d.name)}</code> (${escapeHtml(d.type)}) - ${escapeHtml(d.description)}</li>`).join('')}
+          </ul>
+        </div>
+        <div>
+          <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Calculated Measures &amp; Risk Metrics:</strong>
+          <ul style="margin:6px 0 0 16px; font-size:12.5px; line-height:1.6;">
+            ${(sem.metrics || []).map(m => `<li><code>${escapeHtml(m.name)}</code> = <b>${escapeHtml(m.aggregation)}</b></li>`).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <strong style="font-size:11.5px; text-transform:uppercase; color:var(--text-muted);">Dataform / dbt Model Definition (SQLX):</strong>
+        <pre>${escapeHtml(sem.dataform_sqlx || '-- No SQLX declaration available')}</pre>
+      </div>
+    </div>
+  `;
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+let cachedApprovedUseCases = [];
+let selectedApprovedUseCase = null;
+
+async function populateApprovedUseCasesDropdown() {
+  const select = document.getElementById('dpApprovedUseCaseSelect');
+  if (!select) return;
+  try {
+    const res = await fetch('/api/regulatory/use-cases');
+    const data = await res.json();
+    const list = data.use_cases || [];
+    cachedApprovedUseCases = list.filter(u => u.status === 'APPROVED');
+
+    select.innerHTML = '<option value="">-- Choose an Approved Use Case to Materialize --</option>' + 
+      cachedApprovedUseCases.map(u => `
+        <option value="${escapeHtml(u.use_case_id)}">
+          [${escapeHtml(u.regulatory_framework)}] ${escapeHtml(u.title)} (${escapeHtml(u.use_case_id)})
+        </option>
+      `).join('');
+  } catch (err) {
+    console.error('Failed to load approved use cases:', err);
+  }
+}
+
+function onSelectApprovedUseCase(useCaseId) {
+  const summaryBox = document.getElementById('useCaseContractSummary');
+  const previewBox = document.getElementById('dpAttributesPreviewBox');
+  if (!useCaseId) {
+    selectedApprovedUseCase = null;
+    summaryBox.style.display = 'none';
+    previewBox.innerHTML = '';
+    return;
+  }
+
+  const uc = cachedApprovedUseCases.find(u => u.use_case_id === useCaseId);
+  if (!uc) return;
+  selectedApprovedUseCase = uc;
+
+  const sem = uc.semantic_layer || {};
+  const dims = sem.dimensions || [];
+  const metrics = sem.metrics || [];
+
+  // Auto-populate data product name from semantic layer model_name or clean title
+  const suggestedName = sem.model_name || uc.title.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+  document.getElementById('dpName').value = suggestedName;
+  document.getElementById('dpFramework').value = uc.regulatory_framework;
+  document.getElementById('dpDescription').value = uc.business_objective || uc.description || '';
+
+  // Render contract summary banner
+  summaryBox.style.display = 'block';
+  summaryBox.innerHTML = `
+    <div style="background:#090d16; border:1px solid var(--border-light); border-radius:6px; padding:10px;">
+      <div><b>Linked Approved Contract:</b> <code>${escapeHtml(uc.use_case_id)}</code> &middot; <b>Compliance Target:</b> ${escapeHtml(uc.expected_outcome || 'Zero Fines')}</div>
+      <div style="margin-top:4px;"><b>Quality Rules Enforced:</b> ${escapeHtml(uc.quality_rules || 'Zero Null Master IDs')} &middot; <b>Retention:</b> ${escapeHtml(uc.retention_policy || '7 Years')}</div>
+    </div>
+  `;
+
+  // Render attributes that will be provisioned in the BigQuery schema
+  const allAttrs = [
+    ...dims.map(d => ({ name: d.name, type: d.type || 'STRING', desc: d.description || 'Dimension', is_master: d.name.toLowerCase().includes('master_id') })),
+    ...metrics.map(m => ({ name: m.name, type: 'NUMERIC', desc: m.description || m.aggregation || 'Measure', is_master: false }))
+  ];
+
+  if (allAttrs.length > 0) {
+    previewBox.innerHTML = `
+      <div style="background:#090d16; border:1px solid var(--border); border-radius:6px; padding:10px;">
+        <div style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">
+          Schema Fields to be Materialized in BigQuery (${allAttrs.length} Attributes):
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          ${allAttrs.map(a => `
+            <span style="font-size:11px; padding:3px 7px; border-radius:4px; background:var(--panel-2); border:1px solid ${a.is_master ? 'var(--gold)' : 'var(--border)'}; color:${a.is_master ? 'var(--gold)' : 'var(--text)'};">
+              <code>${escapeHtml(a.name)}</code> <span style="color:var(--text-muted); font-size:10px;">(${escapeHtml(a.type)})</span>
+            </span>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else {
+    previewBox.innerHTML = '';
+  }
+}
+
+function materializeProductFromUseCase(useCaseId) {
+  switchNavTab('products-tab');
+  populateApprovedUseCasesDropdown().then(() => {
+    const select = document.getElementById('dpApprovedUseCaseSelect');
+    if (select) {
+      select.value = useCaseId;
+      onSelectApprovedUseCase(useCaseId);
+    }
+  });
+}
+
+// DATA PRODUCT PUBLISHING (PRODUCER)
+async function publishDataProductFromProducer() {
+  const name = document.getElementById('dpName').value.trim();
+  const domain = document.getElementById('dpDomain').value;
+  const framework = document.getElementById('dpFramework').value;
+  const masterId = document.getElementById('dpMasterId').value.trim() || 'master_id';
+  const desc = document.getElementById('dpDescription').value.trim();
+  const useCaseId = selectedApprovedUseCase ? selectedApprovedUseCase.use_case_id : (document.getElementById('dpApprovedUseCaseSelect').value || "");
+
+  if (!name) {
+    alert('Please specify a data product name.');
+    return;
+  }
+
+  // Clean table name for BigQuery compliance
+  const sanitizedName = name.replace(/[^a-zA-Z0-9_]/g, '_');
+
+  const btn = document.getElementById('publishDataProductBtn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Provisioning BigQuery Table...';
+  }
+
+  // Build attributes from linked approved semantic layer if available
+  let attributesToProvision = [
+    {"name": masterId, "inferred_type": "STRING", "definition": "Canonical Master Identifier", "is_master_id": true},
+    {"name": "total_exposure_usd", "inferred_type": "NUMERIC", "definition": "Gross counterparty aggregate exposure"},
+    {"name": "risk_weighted_assets", "inferred_type": "NUMERIC", "definition": "Calculated RWA for Basel capital ratio"}
+  ];
+
+  if (selectedApprovedUseCase && selectedApprovedUseCase.semantic_layer) {
+    const sem = selectedApprovedUseCase.semantic_layer;
+    const dims = sem.dimensions || [];
+    const metrics = sem.metrics || [];
+    if (dims.length > 0 || metrics.length > 0) {
+      attributesToProvision = [
+        ...dims.map(d => ({
+          name: d.name,
+          inferred_type: d.type === 'DATE' ? 'DATE' : (d.type === 'INTEGER' ? 'INT64' : (d.type === 'NUMERIC' ? 'NUMERIC' : 'STRING')),
+          definition: d.description || 'Dimension',
+          is_master_id: d.name.toLowerCase().includes('master_id')
+        })),
+        ...metrics.map(m => ({
+          name: m.name,
+          inferred_type: 'NUMERIC',
+          definition: m.description || m.aggregation || 'Measure',
+          is_master_id: false
+        }))
+      ];
+    }
+  }
+
+  try {
+    const res = await fetch('/api/regulatory/data-products/create', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        use_case_id: useCaseId,
+        product_name: sanitizedName,
+        domain: domain,
+        regulatory_framework: framework,
+        master_id_column: masterId,
+        description: desc,
+        attributes: attributesToProvision
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    alert(`Success! Governed BigQuery table [${data.table_full_name}] materialized from Use Case [${useCaseId || 'DIRECT'}] and provisioned in curated layer.`);
+    loadDataProducts();
+    loadUseCases();
+  } catch (err) {
+    alert('Failed to materialize product: ' + err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '🚀 Materialize & Provision BigQuery Table';
+    }
+  }
+}
+
+async function loadDataProducts() {
+  const tbody = document.getElementById('productsTableBody');
+  try {
+    const res = await fetch('/api/regulatory/data-products');
+    const data = await res.json();
+    let list = data.data_products || [];
+    if (activeFrameworkFilter !== 'ALL') {
+      list = list.filter(p => (p.regulatory_framework || '').toLowerCase().includes(activeFrameworkFilter.toLowerCase()));
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">No governed data products published yet. Data Producers can create one above.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map(p => `
+      <tr>
+        <td><b>${escapeHtml(p.product_name)}</b></td>
+        <td>${escapeHtml(p.domain)}</td>
+        <td><span class="regulatory-badge">${escapeHtml(p.regulatory_framework)}</span></td>
+        <td><code>${escapeHtml(p.master_id_column || 'master_id')}</code></td>
+        <td><span class="status-badge status-APPROVED">${escapeHtml(p.compliance_certification || 'PASSED')}</span></td>
+        <td>
+          <div style="display:flex; gap:6px;">
+            <button class="approve" style="font-size:11px; padding:3px 8px; background:#38bdf8; color:#0b1120;" onclick="previewDataProductData('${escapeHtml(p.product_name)}')" title="Preview top rows directly">👁️ Preview Data</button>
+            <button class="secondary" style="font-size:11px; padding:3px 8px;" onclick="loadProductToQuery('${escapeHtml(p.product_name)}')">⚡ Query</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="7" style="color:var(--red);">Error loading products: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+function previewDataProductData(tableName) {
+  switchNavTab('query-tab');
+  const input = document.getElementById('naturalQueryInput');
+  input.value = `SELECT * FROM \`data-mosaic-506420.curated.${tableName}\` LIMIT 20;`;
+  executeRegulatoryQuery();
+}
+
+function loadProductToQuery(name) {
+  switchNavTab('query-tab');
+  document.getElementById('naturalQueryInput').value = `Retrieve all records carrying master_id from ${name}`;
+  executeRegulatoryQuery();
+}
+
+// QUERY HUB
+async function executeRegulatoryQuery() {
+  const input = document.getElementById('naturalQueryInput');
+  const query = input.value.trim();
+  const statusEl = document.getElementById('queryStatus');
+  const resultsBox = document.getElementById('queryResultsBox');
+
+  if (!query) {
+    statusEl.textContent = 'Enter a query in plain English first.';
+    return;
+  }
+
+  statusEl.textContent = 'Generating compliant SQL & querying BigQuery with Master ID validation...';
+  resultsBox.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/regulatory/query/generate-and-run', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ natural_query: query, persona: currentPersona })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `Server returned ${res.status}`);
+    }
+    const data = await res.json();
+    statusEl.textContent = '';
+    resultsBox.style.display = 'block';
+
+    if (data.needs_clarification) {
+      document.getElementById('auditDigestHash').textContent = 'CLARIFICATION_REQUIRED';
+      document.getElementById('queryExecutionTime').textContent = '0s';
+      document.getElementById('generatedSqlDisplay').textContent = '-- No query run yet. Please select an exact table or attribute below:';
+
+      const suggestionsHtml = (data.suggestions || []).map(s => `
+        <div style="background:var(--panel-2); border:1px solid var(--border-light); border-radius:8px; padding:12px; margin-top:8px;">
+          <div style="font-weight:700; color:var(--accent); font-size:13.5px;">Table: ${escapeHtml(s.suggested_table)}</div>
+          <div style="font-size:12px; color:var(--text-dim); margin-top:4px;">Available Attributes: ${(s.available_columns || []).map(c => `<code>${escapeHtml(c)}</code>`).join(' ')}</div>
+          <button class="secondary" style="margin-top:8px; font-size:12px; padding:4px 10px;" onclick="selectSuggestedQuery('${escapeHtml(s.suggested_query)}')">
+            ⚡ Use Suggestion: "${escapeHtml(s.suggested_query)}"
+          </button>
+        </div>
+      `).join('');
+
+      document.getElementById('queryExplanation').innerHTML = `
+        <div style="color:var(--gold); font-weight:600; font-size:13px; margin-bottom:6px;">⚠️ Exact Table/Attribute Not Found</div>
+        <div>${escapeHtml(data.explanation || 'We could not find an exact match for the requested data point or table. Did you mean one of the following?')}</div>
+        <div style="margin-top:10px;">${suggestionsHtml}</div>
+      `;
+
+      // Clear table
+      document.getElementById('liveQueryTableHead').innerHTML = '';
+      document.getElementById('liveQueryTableBody').innerHTML = '<tr><td colspan="5" class="empty">Select one of the suggested tables or attribute names above.</td></tr>';
+      return;
+    }
+
+    document.getElementById('auditDigestHash').textContent = data.audit_id || 'AUD-BCBS239-PASS';
+    document.getElementById('queryExecutionTime').textContent = `${data.execution_time_seconds}s (${data.row_count} rows)`;
+    document.getElementById('queryExplanation').textContent = data.explanation || '';
+    document.getElementById('generatedSqlDisplay').textContent = data.sql || '';
+
+    // Render Table
+    const thead = document.getElementById('liveQueryTableHead');
+    const tbody = document.getElementById('liveQueryTableBody');
+    thead.innerHTML = '';
+    tbody.innerHTML = '';
+
+    if (data.records && data.records.length > 0) {
+      const cols = Object.keys(data.records[0]);
+      thead.innerHTML = `<tr>${cols.map(c => `<th>${escapeHtml(c)}</th>`).join('')}</tr>`;
+      tbody.innerHTML = data.records.map(r => `
+        <tr>${cols.map(c => `<td>${escapeHtml(String(r[c] !== null ? r[c] : ''))}</td>`).join('')}</tr>
+      `).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty">Query executed successfully but returned 0 rows.</td></tr>';
+    }
+  } catch (err) {
+    statusEl.innerHTML = `<span style="color:var(--red);">Query execution error: ${escapeHtml(err.message)}</span>`;
+  }
+}
+
+function selectSuggestedQuery(q) {
+  document.getElementById('naturalQueryInput').value = q;
+  executeRegulatoryQuery();
+}
+
+// PLATFORM OWNER ACTIONS
+async function loadOwnerDeck() {
+  const ucListEl = document.getElementById('ownerUseCasesList');
+  const pListEl = document.getElementById('ownerProductsList');
+
+  try {
+    const [ucRes, pRes] = await Promise.all([
+      fetch('/api/regulatory/use-cases'),
+      fetch('/api/regulatory/data-products')
+    ]);
+    const ucData = await ucRes.json();
+    const pData = await pRes.json();
+
+    ucListEl.innerHTML = (ucData.use_cases || []).map(uc => `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
+        <div>
+          <b>${escapeHtml(uc.title)}</b> (${escapeHtml(uc.use_case_id)})
+        </div>
+        <button class="reject" style="font-size:11px; padding:3px 8px;" onclick="ownerDeleteUseCase('${uc.use_case_id}')">Delete Use Case</button>
+      </div>
+    `).join('') || '<div class="empty">No use cases to manage.</div>';
+
+    pListEl.innerHTML = (pData.data_products || []).map(p => `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
+        <div>
+          <b>${escapeHtml(p.product_name)}</b> (${escapeHtml(p.domain)})
+        </div>
+        <button class="reject" style="font-size:11px; padding:3px 8px;" onclick="ownerDeleteDataProduct('${p.product_id}')">Decommission</button>
+      </div>
+    `).join('') || '<div class="empty">No data products to manage.</div>';
+  } catch (err) {
     console.error(err);
   }
 }
 
-function renderResultsTable(results) {
-  const container = document.getElementById('uploadResults');
-  container.innerHTML = '';
-
-  const table = document.createElement('table');
-  const header = document.createElement('tr');
-  header.innerHTML = '<th>Attribute</th><th>Sample Values</th><th>Status</th><th>Candidate Matches</th><th>AI Suggestion</th>';
-  table.appendChild(header);
-
-  results.forEach((r, index) => {
-    const row = document.createElement('tr');
-    row.id = `result-row-${index}`;
-    const status = r.match_result.status;
-    const mr = r.match_result;
-
-    let candidates = [];
-    if (status === 'candidate_match' && mr.match) {
-      candidates = [mr.match];
-    } else if (status === 'weak_match' && mr.all_candidates) {
-      candidates = mr.all_candidates;
-    }
-
-    let candidatesHtml = '&mdash;';
-    if (status === 'alias_match') {
-      candidatesHtml = `<div class="candidate-row"><b>${escapeHtml(mr.canonical_term)}</b> <span class="meta">(learned alias)</span></div>`;
-    } else if (candidates.length) {
-      candidatesHtml = candidates.map((c, cIdx) => {
-        const key = `${index}-${cIdx}`;
-        const rawScore = c.confidence != null ? c.confidence : (c.similarity_score != null ? c.similarity_score : null);
-        const scoreVal = (rawScore !== null && !isNaN(Number(rawScore))) ? Number(rawScore) : 0;
-        const pctDisplay = (scoreVal * 100).toFixed(0);
-        return `
-          <div class="candidate-row">
-            <b>${escapeHtml(c.column_name)}</b>
-            <span class="meta">${escapeHtml(c.table_name)} &middot; ${pctDisplay}%</span>
-            <button id="thumb-up-${key}" class="approve thumb-btn" onclick="sendMatchFeedback(${index}, ${cIdx}, 'approved', '${escapeHtml(c.column_name)}', ${scoreVal})">&#128077;</button>
-            <button id="thumb-down-${key}" class="reject thumb-btn" onclick="sendMatchFeedback(${index}, ${cIdx}, 'rejected', '${escapeHtml(c.column_name)}', ${scoreVal})">&#128078;</button>
-            <span id="candidate-status-${key}" style="font-size:11px; margin-left:6px;"></span>
-          </div>
-        `;
-      }).join('');
-    }
-
-    const sampleDisplay = Array.isArray(r.attribute.sample_values)
-      ? r.attribute.sample_values.slice(0, 3).map(v => String(v)).join(', ')
-      : '';
-
-    row.innerHTML = `
-      <td><b>${escapeHtml(r.attribute.name)}</b><br><span class="meta">${escapeHtml(r.attribute.inferred_type || '')}</span></td>
-      <td><span class="meta">${escapeHtml(sampleDisplay)}</span></td>
-      <td><span class="status-badge status-${status}">${escapeHtml(status)}</span></td>
-      <td class="candidates-cell">${candidatesHtml}</td>
-      <td><button class="secondary" style="font-size:12px; padding:5px 10px;" onclick="getRecommendation(${index})">Suggest New</button></td>
-    `;
-    table.appendChild(row);
-  });
-
-  container.appendChild(table);
-}
-
-const candidateDecisions = {};
-
-async function sendMatchFeedback(index, cIdx, action, matchedName, confidence) {
-  const attribute = lastUploadResults[index].attribute;
-  const key = `${index}-${cIdx}`;
-  const previous = candidateDecisions[key];
-  const upBtn = document.getElementById(`thumb-up-${key}`);
-  const downBtn = document.getElementById(`thumb-down-${key}`);
-  const statusEl = document.getElementById(`candidate-status-${key}`);
-
-  const newAction = (previous === action) ? 'none' : action;
+async function ownerDeleteUseCase(id) {
+  if (!confirm(`Platform Owner Action: Permanently delete regulatory use case ${id}?`)) return;
 
   try {
-    await apiFetch('/api/match-feedback', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        attribute_name: attribute.name,
-        sample_values: attribute.sample_values,
-        matched_column_name: matchedName,
-        confidence: confidence,
-        user_action: newAction
-      })
+    const res = await fetch(`/api/regulatory/use-cases/${id}`, {
+      method: 'DELETE'
     });
-
-    const existingIdx = approvedAttributes.findIndex(a => a.name === attribute.name);
-    if (newAction === 'approved' && existingIdx === -1) {
-      approvedAttributes.push({ name: attribute.name, inferred_type: attribute.inferred_type, description: `Matched to ${matchedName}` });
-    } else if (newAction !== 'approved' && existingIdx !== -1) {
-      approvedAttributes.splice(existingIdx, 1);
-    }
-    renderApprovedList();
-
-    candidateDecisions[key] = (newAction === 'none') ? undefined : newAction;
-    upBtn.classList.toggle('active', candidateDecisions[key] === 'approved');
-    downBtn.classList.toggle('active', candidateDecisions[key] === 'rejected');
-
-    if (candidateDecisions[key] === 'approved') {
-      statusEl.textContent = '✓ Approved';
-      statusEl.style.color = '#34d399';
-    } else if (candidateDecisions[key] === 'rejected') {
-      statusEl.textContent = '✗ Rejected';
-      statusEl.style.color = '#f87171';
-    } else {
-      statusEl.textContent = '';
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    alert(`Use case ${id} removed.`);
+    loadOwnerDeck();
+    loadUseCases();
   } catch (err) {
-    alert('Failed to record match feedback: ' + err.message);
+    alert('Deletion failed: ' + err.message);
+  }
+}
+
+async function ownerDeleteDataProduct(id) {
+  if (!confirm(`Platform Owner Action: Decommission data product ${id}?`)) return;
+
+  try {
+    const res = await fetch(`/api/regulatory/data-products/${id}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    alert(`Data Product ${id} decommissioned.`);
+    loadOwnerDeck();
+    loadDataProducts();
+  } catch (err) {
+    alert('Decommission failed: ' + err.message);
   }
 }
 
@@ -792,435 +1768,9 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-async function getRecommendation(index) {
-  const attribute = lastUploadResults[index].attribute;
-  const container = document.getElementById('uploadResults');
-
-  const loadingCard = document.createElement('div');
-  loadingCard.className = 'rec-card';
-  loadingCard.textContent = `Generating AI suggestion for ${attribute.name}...`;
-  container.appendChild(loadingCard);
-
-  try {
-    const res = await apiFetch('/api/recommend', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        attribute_name: attribute.name,
-        sample_values: attribute.sample_values
-      })
-    });
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-    const rec = await res.json();
-    lastRecommendations[index] = rec;
-
-    loadingCard.innerHTML = `
-      <b>${escapeHtml(attribute.name)}</b>
-      <div class="meta">
-        Suggested term: <b>${escapeHtml(rec.suggested_glossary_term || '')}</b><br>
-        Definition: ${escapeHtml(rec.definition || '')}<br>
-        Domain: ${escapeHtml(rec.suggested_domain || '')} / ${escapeHtml(rec.suggested_subdomain || '')} &middot;
-        Source app: ${escapeHtml(rec.suggested_source_application || 'NA')} &middot;
-        Confidence: ${rec.confidence}
-      </div>
-      <div style="margin-top:10px;">
-        <button class="approve" style="padding:4px 12px;" onclick="handleRecDecision(${index}, 'approved', this)">Approve &amp; Add</button>
-        <button class="reject" style="padding:4px 12px;" onclick="handleRecDecision(${index}, 'rejected', this)">Reject</button>
-      </div>
-    `;
-  } catch (err) {
-    loadingCard.innerHTML = `<span style="color:#f87171;">Error: ${escapeHtml(err.message)}</span>`;
-  }
-}
-
-async function handleRecDecision(index, action, btnEl) {
-  const rec = lastRecommendations[index];
-  const attribute = lastUploadResults[index].attribute;
-  const cardEl = btnEl.closest('.rec-card');
-
-  try {
-    await apiFetch('/api/feedback', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        attribute_name: attribute.name,
-        sample_values: attribute.sample_values,
-        suggested_glossary_term: rec.suggested_glossary_term || '',
-        suggested_domain: rec.suggested_domain || '',
-        suggested_subdomain: rec.suggested_subdomain || '',
-        suggested_source_application: rec.suggested_source_application || '',
-        confidence: rec.confidence || 0,
-        user_action: action
-      })
-    });
-
-    const note = document.createElement('span');
-    note.style.marginLeft = '10px';
-    note.style.fontSize = '12px';
-    if (action === 'approved') {
-      note.textContent = '✓ Approved and added to schema';
-      note.style.color = '#34d399';
-    } else {
-      note.textContent = '✗ Rejected';
-      note.style.color = '#f87171';
-    }
-    cardEl.querySelectorAll('button').forEach(b => b.remove());
-    cardEl.appendChild(note);
-
-    if (action === 'approved') {
-      approvedAttributes.push({
-        name: attribute.name,
-        inferred_type: attribute.inferred_type,
-        description: rec.definition || rec.suggested_glossary_term || ''
-      });
-      renderApprovedList();
-    }
-  } catch (err) {
-    alert('Failed to record feedback: ' + err.message);
-  }
-}
-
-function renderApprovedList() {
-  const panel = document.getElementById('createProductPanel');
-  const table = document.getElementById('approvedAttributesTable');
-
-  if (approvedAttributes.length === 0) {
-    panel.style.display = 'none';
-    return;
-  }
-  panel.style.display = 'block';
-
-  table.innerHTML = '<tr><th>Column Name</th><th>Description</th><th></th></tr>';
-  approvedAttributes.forEach((attr, i) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td><input type="text" class="attr-name-input" data-i="${i}" value="${escapeHtml(attr.name)}"></td>
-      <td><input type="text" class="attr-desc-input" data-i="${i}" value="${escapeHtml(attr.description || '')}" style="width:95%;"></td>
-      <td><button class="reject remove-attr-btn" data-i="${i}" style="padding:4px 10px;">&times;</button></td>
-    `;
-    table.appendChild(row);
-  });
-
-  table.querySelectorAll('.attr-name-input').forEach(inp => {
-    inp.addEventListener('input', () => { approvedAttributes[parseInt(inp.dataset.i)].name = inp.value; });
-  });
-  table.querySelectorAll('.attr-desc-input').forEach(inp => {
-    inp.addEventListener('input', () => { approvedAttributes[parseInt(inp.dataset.i)].description = inp.value; });
-  });
-  table.querySelectorAll('.remove-attr-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      approvedAttributes.splice(parseInt(btn.dataset.i), 1);
-      renderApprovedList();
-    });
-  });
-}
-
-document.getElementById('addAttributeBtn').addEventListener('click', () => {
-  approvedAttributes.push({ name: '', inferred_type: 'object', description: '' });
-  document.getElementById('createProductPanel').style.display = 'block';
-  renderApprovedList();
-});
-
-document.getElementById('suggestProductMetaBtn').addEventListener('click', suggestProductMeta);
-
-async function suggestProductMeta() {
-  const reasonEl = document.getElementById('suggestMetaReason');
-  if (approvedAttributes.length === 0) {
-    reasonEl.textContent = 'Add or approve at least one attribute first.';
-    return;
-  }
-  reasonEl.textContent = 'Generating AI suggestions for product name & domain...';
-
-  try {
-    const res = await apiFetch('/api/suggest-product-meta', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ attributes: approvedAttributes.map(a => ({ name: a.name, description: a.description })) })
-    });
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-    const data = await res.json();
-
-    const nameInput = document.getElementById('productName');
-    const domainInput = document.getElementById('productDomain');
-    if (!nameInput.value.trim()) nameInput.value = data.suggested_product_name || '';
-    if (!domainInput.value.trim()) domainInput.value = data.suggested_domain || '';
-
-    reasonEl.textContent = data.reasoning || '';
-  } catch (err) {
-    reasonEl.textContent = 'Error getting suggestion: ' + err.message;
-  }
-}
-
-async function submitDataProductRequest() {
-  const productName = document.getElementById('productName').value.trim();
-  const domain = document.getElementById('productDomain').value.trim();
-  const requestedBy = document.getElementById('requestedBy').value.trim();
-  const businessJustification = document.getElementById('businessJustification').value.trim();
-  const useCaseType = document.getElementById('useCaseType').value.trim();
-  const resultEl = document.getElementById('createProductResult');
-
-  if (!productName || !domain) {
-    resultEl.innerHTML = '<span style="color:#f87171;">Enter a product name and domain first.</span>';
-    return;
-  }
-  if (!requestedBy) {
-    resultEl.innerHTML = '<span style="color:#f87171;">Please specify who is requesting this data product (Requested By).</span>';
-    return;
-  }
-  if (!businessJustification) {
-    resultEl.innerHTML = '<span style="color:#f87171;">Please provide a business justification and requirement summary.</span>';
-    return;
-  }
-  if (approvedAttributes.length === 0 || approvedAttributes.some(a => !a.name.trim())) {
-    resultEl.innerHTML = '<span style="color:#f87171;">Every attribute in the schema needs a valid name.</span>';
-    return;
-  }
-
-  resultEl.textContent = 'Submitting request for Platform Owner approval...';
-
-  const combinedJustification = useCaseType ? `[SLA/Use Case: ${useCaseType}] ${businessJustification}` : businessJustification;
-
-  try {
-    const res = await apiFetch('/api/requests/submit', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        product_name: productName,
-        domain: domain,
-        requested_by: requestedBy,
-        business_justification: combinedJustification,
-        attributes: approvedAttributes
-      })
-    });
-    if (!res.ok) {
-      const errBody = await res.json().catch(() => null);
-      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
-    }
-    const data = await res.json();
-    resultEl.innerHTML = `
-      <div class="rec-card" style="border-left: 4px solid var(--green);">
-        <b style="color:var(--green);">✓ Request Submitted Successfully!</b><br>
-        <div class="meta" style="margin-top:6px;">
-          <strong>Request ID:</strong> <code>${escapeHtml(data.request_id)}</code> &middot;
-          <strong>Status:</strong> <span class="status-badge status-PENDING">PENDING APPROVAL</span><br>
-          <strong>Product Name:</strong> ${escapeHtml(data.product_name)} (${escapeHtml(data.domain)})<br>
-          <strong>Requester:</strong> ${escapeHtml(data.requested_by)}<br>
-          <em>The Platform Owner will review your request. Once approved, the physical table will be provisioned in BigQuery.</em>
-        </div>
-      </div>
-    `;
-    loadUserRequests();
-  } catch (err) {
-    resultEl.innerHTML = `<span style="color:#f87171;">Submission Error: ${escapeHtml(err.message)}</span>`;
-  }
-}
-
-async function loadUserRequests() {
-  const table = document.getElementById('userRequestsTable');
-  try {
-    const res = await apiFetch('/api/requests');
-    if (!res.ok) return;
-    const data = await res.json();
-    const list = data.requests || [];
-
-    const pending = list.filter(r => r.status === 'PENDING').length;
-    document.getElementById('pendingCountBadge').textContent = pending;
-
-    table.innerHTML = '<tr><th>Request ID</th><th>Product Name</th><th>Domain</th><th>Requested By</th><th>Status</th><th>Updated</th></tr>';
-    if (list.length === 0) {
-      table.innerHTML += '<tr><td colspan="6" class="empty">No requests submitted yet.</td></tr>';
-      return;
-    }
-
-    list.forEach(r => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td><code>${escapeHtml(r.request_id)}</code></td>
-        <td><b>${escapeHtml(r.product_name)}</b></td>
-        <td>${escapeHtml(r.domain)}</td>
-        <td>${escapeHtml(r.requested_by || 'Unknown')}</td>
-        <td><span class="status-badge status-${r.status}">${escapeHtml(r.status)}</span></td>
-        <td class="meta">${escapeHtml((r.updated_at || r.created_at || '').slice(0, 19).replace('T', ' '))}</td>
-      `;
-      table.appendChild(row);
-    });
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-// --- Platform Owner Admin Management ---
-
-let cachedAdminRequests = null;  // Cache so filter changes don't re-fetch
-
-async function fetchAdminRequests() {
-  // Fetches from server and caches. Only call when you need fresh data.
-  const res = await adminFetch('/api/admin/requests');
-  if (!res.ok) throw new Error(`Server returned ${res.status}`);
-  const data = await res.json();
-  cachedAdminRequests = data.requests || [];
-  updateOwnerAuthUI();  // Auth succeeded — update the badge
-  return cachedAdminRequests;
-}
-
-function renderAdminRequests(requests) {
-  const container = document.getElementById('adminRequestsList');
-  const statusFilter = document.getElementById('adminStatusFilter').value;
-
-  let filtered = requests;
-  if (statusFilter) {
-    filtered = requests.filter(r => r.status === statusFilter);
-  }
-
-  if (filtered.length === 0) {
-    container.innerHTML = `<div class="empty" style="padding:20px 0;">No ${statusFilter ? statusFilter.toLowerCase() : ''} requests found.</div>`;
-    return;
-  }
-
-  container.innerHTML = filtered.map(r => `
-    <div class="request-card" id="admin-req-card-${r.request_id}">
-      <div class="request-card-header">
-        <div>
-          <span style="font-size:16px; font-weight:700;">${escapeHtml(r.product_name)}</span>
-          <span class="status-badge status-candidate_match" style="margin-left:8px;">${escapeHtml(r.domain)}</span>
-          <span class="status-badge status-${r.status}" style="margin-left:6px;">${escapeHtml(r.status)}</span>
-        </div>
-        <div class="meta">Request ID: <code>${escapeHtml(r.request_id)}</code></div>
-      </div>
-
-      <div class="meta" style="margin-bottom:8px;">
-        <strong>Requested by:</strong> ${escapeHtml(r.requested_by || 'Not specified')} &middot;
-        <strong>Submitted:</strong> ${escapeHtml((r.created_at || '').slice(0, 19).replace('T', ' '))}
-      </div>
-
-      <div style="background:var(--panel); padding:10px 12px; border-radius:6px; margin:10px 0; font-size:12.5px;">
-        <strong>Business Justification &amp; Requirement:</strong><br>
-        <span style="color:var(--text);">${escapeHtml(r.business_justification || 'No justification provided.')}</span>
-      </div>
-
-      <div style="margin:10px 0;">
-        <strong style="font-size:12px; text-transform:uppercase; color:var(--text-dim);">Requested Schema Columns:</strong>
-        <div style="margin-top:6px;">
-          ${(r.attributes || []).map(a => `
-            <span class="status-badge status-candidate_match" style="margin:2px; font-weight:normal;">
-              <strong>${escapeHtml(a.name)}</strong> (${escapeHtml(a.inferred_type || 'STRING')})
-            </span>
-          `).join('')}
-        </div>
-      </div>
-
-      ${r.table_full_name ? `
-        <div class="meta" style="color:var(--green); margin-top:8px;">
-          <strong>BigQuery Physical Table:</strong> <code>${escapeHtml(r.table_full_name)}</code>
-        </div>
-      ` : ''}
-
-      ${r.reviewer_notes ? `
-        <div class="meta" style="margin-top:4px;">
-          <strong>Reviewer Notes:</strong> ${escapeHtml(r.reviewer_notes)}
-        </div>
-      ` : ''}
-
-      ${r.status === 'PENDING' ? `
-        <div style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px; display:flex; gap:10px; align-items:center;">
-          <input type="text" id="admin-notes-${r.request_id}" placeholder="Reviewer notes / approval comments (optional)" style="width:50%;">
-          <button class="approve" onclick="approveRequest('${r.request_id}')">Approve &amp; Write to BigQuery</button>
-          <button class="reject" onclick="rejectRequest('${r.request_id}')">Reject</button>
-        </div>
-      ` : ''}
-    </div>
-  `).join('');
-}
-
-async function loadAdminRequests(forceRefresh) {
-  const container = document.getElementById('adminRequestsList');
-
-  // If we already have cached data and this is just a filter change, render from cache
-  if (cachedAdminRequests && !forceRefresh) {
-    renderAdminRequests(cachedAdminRequests);
-    return;
-  }
-
-  container.innerHTML = '<div class="empty">Loading requests...</div>';
-
-  try {
-    const requests = await fetchAdminRequests();
-    renderAdminRequests(requests);
-  } catch (err) {
-    container.innerHTML = `<div style="color:#f87171; padding:20px 0;">Error loading admin requests: ${escapeHtml(err.message)}</div>`;
-  }
-}
-
-async function approveRequest(requestId) {
-  const notesInput = document.getElementById(`admin-notes-${requestId}`);
-  const reviewerNotes = notesInput ? notesInput.value.trim() : '';
-
-  if (!confirm(`Are you sure you want to approve request ${requestId} and provision the physical table in BigQuery?`)) return;
-
-  try {
-    const res = await adminFetch(`/api/admin/requests/${requestId}/approve`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ reviewer_notes: reviewerNotes })
-    });
-    if (!res.ok) {
-      const errBody = await res.json().catch(() => null);
-      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
-    }
-    const data = await res.json();
-    alert(`Success! Table ${data.table_creation.table_full_name} created in BigQuery and registered as a data product.`);
-    loadAdminRequests();
-    loadSidebarProducts();
-    loadUserRequests();
-  } catch (err) {
-    alert('Approval failed: ' + err.message);
-  }
-}
-
-async function rejectRequest(requestId) {
-  const notesInput = document.getElementById(`admin-notes-${requestId}`);
-  const reviewerNotes = notesInput ? notesInput.value.trim() : '';
-  const reason = prompt("Enter rejection reason for requester:", reviewerNotes) || "";
-
-  try {
-    const res = await adminFetch(`/api/admin/requests/${requestId}/reject`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ reviewer_notes: reason })
-    });
-    if (!res.ok) {
-      const errBody = await res.json().catch(() => null);
-      throw new Error(errBody && errBody.detail ? errBody.detail : `Server returned ${res.status}`);
-    }
-    alert(`Request ${requestId} has been marked as REJECTED.`);
-    loadAdminRequests();
-    loadUserRequests();
-  } catch (err) {
-    alert('Rejection failed: ' + err.message);
-  }
-}
-
-function updateOwnerAuthUI() {
-  const el = document.getElementById('ownerAuthStatus');
-  if (!el) return;
-  if (platformOwnerPassword) {
-    el.innerHTML = '<span class="status-badge status-APPROVED">Authenticated as Owner</span>';
-  } else {
-    el.innerHTML = '<span class="status-badge status-PENDING">Password Required</span>';
-  }
-}
-
-function resetOwnerPassword() {
-  sessionStorage.removeItem("platform_owner_password");
-  platformOwnerPassword = "";
-  const input = window.prompt("Enter Platform Owner Password:");
-  if (input && input.trim()) {
-    platformOwnerPassword = input.trim();
-    sessionStorage.setItem("platform_owner_password", platformOwnerPassword);
-    updateOwnerAuthUI();
-    loadAdminRequests();
-  }
-}
+// Initial loads
+loadUseCases();
+loadDataProducts();
 </script>
 
 </body>
